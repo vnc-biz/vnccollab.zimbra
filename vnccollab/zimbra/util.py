@@ -6,6 +6,7 @@ from plone import api
 
 from vnccollab.zimbra.interfaces import IZimbraUtil
 from vnccollab.zimbra.zimbraclient import ZimbraUtilClient
+from vnccollab.zimbra.content import Message
 
 
 class ZimbraUtil:
@@ -33,40 +34,30 @@ class ZimbraUtil:
         username, password = self._get_credentials()
         return self._get_client(url, username, password)
 
-    def search(self, query):
+    def searchConversations(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.search(query)
+        return client.searchConversations(query)
 
-    def get_raw_emails(self, **query):
+    def searchMessages(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.get_raw_emails(**query)
+        return client.searchMessages(**query)
 
-    def get_emails(self, **query):
+    def searchTasks(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.get_emails(**query)
+        return client.searchTasks(**query)
 
-    def get_email(self, eid):
+    def getMessage(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.get_email(eid)
-
-    def get_email_thread(self, eid):
-        ''' '''
-        client = self._get_client_for_current_user()
-        return client.get_email_thread(eid)
+        return client.getMessage(**query)
 
     def get_address_book(self, offset=0, limit=100):
         ''' '''
         client = self._get_client_for_current_user()
         return client.get_address_book(offset, limit)
-
-    def get_tasks(self):
-        ''' '''
-        client = self._get_client_for_current_user()
-        return client.get_tasks()
 
     def create_task(self, dct):
         ''' '''

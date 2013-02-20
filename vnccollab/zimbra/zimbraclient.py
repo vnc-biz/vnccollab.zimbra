@@ -3,9 +3,8 @@ from pyzimbra.soap import SoapException
 from pyzimbra.auth import AuthException
 from pyzimbra.z.client import ZimbraClient
 
-from Products.CMFPlone.utils import safe_unicode as su
+from vnccollab.zimbra.content import Message, Conversation
 
-from vnccollab.zimbra.content import Message
 
 def refreshAuthToken(func, *args, **kw):
     """Catches SoapException from passed function call and if the error is
@@ -43,18 +42,13 @@ class ZimbraUtilClient:
         self.server_url = server_url
         self.url = self.server_url + '/service/soap'
         self.client = ZimbraClient(self.url)
-
-        if username:
-            self.authenticate(username, password)
-        else:
-            self.username = ''
-            self.password = ''
-
-    def authenticate(self, username, password):
         self.username = username
         self.password = password
+        self.authenticated = False
+        self.authenticate()
 
-        if username:
+    def authenticate(self):
+        if self.username:
             try:
                 self.client.authenticate(self.username, self.password)
                 self.authenticated = True
@@ -64,60 +58,95 @@ class ZimbraUtilClient:
             self.authenticated = False
 
     @refreshAuthToken
-    def search(self, query):
-        '''Returns the result of making the given query.'''
-        result = self.client.invoke('urn:zimbraMail', 'SearchRequest', query)
-        # if we have activated returnAllAttrs, result is a tuple.
+    def _invoke(self, command, query):
+        result = self.client.invoke('urn:zimbraMail', command, query)
+        # if pyzimbra has activated returnAllAttrs, result is a tuple.
         # We're interested here only in its first element
         if type(result) == tuple:
             result = result[0]
 
-        # Get the result out of the list
-        if not isinstance(result, list):
-            result = [result]
-
         return result
 
-    @refreshAuthToken
-    def get_raw_emails(self, folder=None, searchable_text='',
-                   offset=0, limit=10,
-                   recip='1', sortBy='dateDesc', types='conversation'):
-        """Returns list of email conversations.
+    def searchRequest(self, klass=None, folder=None,
+            searchable_text=None, **query):
+        '''Returns the raw result of  SearchRequest.
 
         Args:
-          @folder - if given, return list of emails from inside this folder
-          @serchable_text - Text the email should have to be shown.
-          @offset - if given, return list of emails starting from start
-          @limit - return 'limit' number of emails
-          @recip - whether to return 'to' email adress instead of 'from' for
-                   sent messages and conversations
-          @sort_by - sort result set by given field
-        """
-        query = {
-            'types': types,
-            'limit': limit,
-            'offset': offset,
-            'recip': recip,
-            'sortBy': sortBy,
-        }
-
+            klass: Class to convert the results.
+            query: Dictionary with the query. It allows the following keys:
+                offset:
+                limit:
+                sortBy:
+                types:
+                recip="0"|"1":
+                fetch="1|all|{id}":
+                read="0|1":
+                max:
+                html="0|1":
+                neuter="0|1":
+                field:
+                resultMode
+                inDumpster="0|1"
+        '''
         if folder:
             query['query'] = 'in:%s' % folder
 
         if searchable_text:
             query['query'] = searchable_text
 
-        result = self.search(query)
+        result = self._invoke('SearchRequest', query)
+
+        if klass is not None:
+            result = [klass(x) for x in result]
         return result
 
-    @refreshAuthToken
-    def get_emails(self, folder=None, searchable_text='',
-                   offset=0, limit=10,
-                   recip='1', sortBy='dateDesc', types='conversation'):
-        result = self.get_raw_emails(folder=folder,
-                searchable_text=searchable_text, offset=offset, limit=limit,
-                recip=recip, sortBy=sortBy, types=types)
-        return [Message(x) for x in result]
+    def searchConversations(self, **query):
+        query['types'] = 'conversation'
+        result = self.searchRequest(Conversation, **query)
+        return result
+
+    def searchMessages(self, **query):
+        query['type'] = 'message'
+        result = self.searchRequest(Message, **query)
+        return result
+
+    def searchTasks(self, **query):
+        query['type'] = 'task'
+        result = self.searchRequest(**query)
+        return result
+
+    def getItemRequest(self, klass=None, **query):
+        '''
+        '''
+        result = self._invoke('GetItemRequest', query)
+        if klass is not None:
+            result = klass(result)
+        return result
+
+    def getMessage(self, **query):
+        '''Returns a message, given its id.
+        Args:
+            query:
+                id: Message id.
+                read="0|1": Mark as read.
+                raw="0|1": Returns raw message.
+                max: Limit length of body.
+                html="0|1": Return defanged html.
+                neuter="0|1": Neuter images.
+                part:
+                ridZ:
+                needExp: Return group info.
+        '''
+        nquery = dict(m=query)
+        result = self._invoke('GetMsgRequest', nquery)
+        result = Message(result)
+        return result
+
+    def getConversation(self, **query):
+        nquery = dict(c=query)
+        result = self._invoke('GetConvRequest', nquery)
+        result = Conversation(result)
+        return result
 
     @refreshAuthToken
     def get_address_book(self, offset=0, limit=100):
@@ -129,7 +158,7 @@ class ZimbraUtilClient:
             'limit': limit,
             'query': 'in:contacts'
         }
-        result = self.search(query)
+        result = self.raw_searchRequest(query)
         return result
 
     @refreshAuthToken
@@ -146,55 +175,6 @@ class ZimbraUtilClient:
             result = [result]
 
         return result
-
-    @refreshAuthToken
-    def get_email_thread(self, eid):
-        """Returns conversation emails by given id.
-
-        It also marks conversation as read.
-        """
-        result = self.get_email(eid)
-
-        thread = []
-        for item in result:
-            from_ = [su(e._getAttr('p')) for e in item.e
-                        if e._getAttr('t') == 'f']
-            from_ = from_[0] if len(from_) else ''
-            to = u', '.join([su(e._getAttr('d')) for e in item.e
-                        if e._getAttr('t') == 't'])
-
-            thread.append({
-                'from': from_,
-                'to': to,
-                'body': item,
-                'id': item._getAttr('_orig_id'),
-                'date': item._getAttr('d'),
-            })
-
-            return thread
-
-    def _dict_from_mail(self, mail):
-        """Converts a zimbra mail into a dictionary"""
-        people = mail.e
-        if not people:
-            people = []
-        elif not isinstance(people, list):
-            people = [people]
-
-        # prepare subject
-        subject = getattr(mail, 'su', '') or 'No Subject'
-
-        dct = {
-            'subject': su(subject),
-            'body': u'%s (%s) - %s - %s' % (u', '.join([p._getAttr('d')
-                    for p in people]), mail._getAttr('n'), su(mail.su),
-                    su(getattr(mail, 'fr', ''))),
-            'unread': u'u' in (mail._getAttr('f') or ''),
-            'id': mail._getAttr('_orig_id'),
-            'date': mail._getAttr('d'),
-            'cid': mail._getAttr('cid'),
-        }
-        return dct
 
     @refreshAuthToken
     def create_task(self, dct):
