@@ -7,7 +7,7 @@ from vnccollab.zimbra.interfaces import IEmailAddress, IMessage
 
 
 class EmailAddress:
-    '''Implementation of a Zimbra Email.'''
+    '''Zimbra Email.'''
     implements(IEmailAddress)
 
     '''Types of emails.'''
@@ -27,28 +27,87 @@ class EmailAddress:
         self.content_name = _safe_get_node(zimbra_email, 'e')
 
 
-class Message:
-    '''Implementation of a Zimbra Message.'''
-    implements(IMessage)
+class MIMEPart:
+    '''MIME Part.'''
+    def __init__(self, zimbra_part):
+        self.raw = zimbra_part
+        self.part_name = _safe_get_attr(zimbra_part, 'part')
+        self.is_body = _get_attr(zimbra_part, 'body', False) == '1'
+        self.size = int(_safe_get_attr(zimbra_part, 's', 0))
+        self.message_id = _safe_get_attr(zimbra_part, 'mid')
+        self.conversation_id = _safe_get_attr(zimbra_part, 'cid')
+        self.truncated = _safe_get_attr(zimbra_part, 'truncated', False) == '1'
+        self.content_type = _safe_get_attr(zimbra_part, 'ct')
+        self.content_disposition = _safe_get_attr(zimbra_part, 'cd')
+        self.filename = _safe_get_attr(zimbra_part, 'filename')
+        self.content_id = _safe_get_attr(zimbra_part, 'ci')
+        self.content_location = _safe_get_attr(zimbra_part, 'cl')
+        self.content = _safe_get_attr(zimbra_part, 'content')
+        parts = _safe_get_node(zimbra_part, 'mp', [])
 
-    def __init__(self, zimbra_message):
-        self.id = _safe_get_attr(zimbra_message, 'id')
-        self.flags = _safe_get_attr(zimbra_message, 'f')
-        self.size = _safe_get_attr(zimbra_message, 's')
-        self.date = _date_from_zimbra_date(_get_attr(zimbra_message, 'd'))
-        self.conversation_id = _safe_get_attr(zimbra_message, 'cid')
-        self.original_id = _safe_get_attr(zimbra_message, '_orig_id')
-        self.subject = _safe_get_node(zimbra_message, 'su')
-        self.fragment = _safe_get_node(zimbra_message, 'fr')
-        self.addresses = [EmailAddress(x) for x in
-                            _safe_get_node(zimbra_message, 'e')]
-        self.content = _safe_get_node(zimbra_message, 'content')
-        self.multipart = _safe_get_node(zimbra_message, 'mp')
-        self.message_id_header = _safe_get_node(zimbra_message, 'mid')
-        self.raw = zimbra_message
+        if type(parts) != list:
+            parts = [parts]
+
+        self.parts = [MIMEPart(x) for x in parts]
+
+
+class MessageBase:
+    def __init__(self, zimbra_object):
+        self.raw = zimbra_object
+        self.id = _safe_get_attr(zimbra_object, 'id')
+        self.flags = _safe_get_attr(zimbra_object, 'f')
+        self.date = _date_from_zimbra_date(_get_attr(zimbra_object, 'd'))
+        self.subject = _safe_get_node(zimbra_object, 'su')
+        self.fragment = _safe_get_node(zimbra_object, 'fr')
+        self.addresses = self._addresses(_safe_get_node(zimbra_object,
+                                                        'e', []))
 
     def filter_addresses(self, filter):
         return [email for email in self.addresses if email.type == filter]
+
+    def _addresses(self, addressList):
+        if type(addressList) != list:
+            addressList = [addressList]
+        addressList = [x for x in addressList if type(x) != str]
+        return [EmailAddress(x) for x in addressList]
+
+
+class Message(MessageBase):
+    '''Zimbra Message (an email).'''
+    implements(IMessage)
+
+    def __init__(self, zimbra_message):
+        MessageBase.__init__(self, zimbra_message)
+        self.size = _safe_get_attr(zimbra_message, 's')
+        self.conversation_id = _safe_get_attr(zimbra_message, 'cid')
+        self.original_id = _safe_get_attr(zimbra_message, '_orig_id')
+        self.content = _safe_get_node(zimbra_message, 'content')
+        self.multipart = _safe_get_node(zimbra_message, 'mp')
+        self.message_id_header = _safe_get_node(zimbra_message, 'mid')
+        self.sort_field = _safe_get_attr(zimbra_message, 'sf')
+        mime = _safe_get_node(zimbra_message, 'mp', None)
+
+        if mime:
+            mime = MIMEPart(mime)
+
+        self.mime = mime
+
+
+class Conversation(MessageBase):
+    '''Zimbra Conversation (a mail thread).'''
+    def __init__(self, zimbra_conversation):
+        MessageBase.__init__(self, zimbra_conversation)
+        self.tags = _safe_get_attr(zimbra_conversation, 't')
+        self.num_messages = int(_safe_get_attr(zimbra_conversation, 'n', 0))
+        self.total = _safe_get_attr(zimbra_conversation, 'total')
+        self.mbx = _safe_get_attr(zimbra_conversation, 'mbx')
+        self.sort_field = _safe_get_attr(zimbra_conversation, 'sf')
+        messages = _safe_get_node(zimbra_conversation, 'm', [])
+
+        if type(messages) != list:
+            messages = [messages]
+
+        self.messages = [Message(x) for x in messages]
 
 
 def _date_from_zimbra_date(zimbra_date):
