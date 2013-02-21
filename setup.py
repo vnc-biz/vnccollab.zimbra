@@ -8,8 +8,6 @@ setup(name='vnccollab.zimbra',
       description="VNC Collaboration Zimbra AddOn.",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from
-      # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
@@ -25,6 +23,7 @@ setup(name='vnccollab.zimbra',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'pyzimbra',
           'five.grok',
           'plone.api',
       ],

@@ -6,7 +6,6 @@ from plone import api
 
 from vnccollab.zimbra.interfaces import IZimbraUtil
 from vnccollab.zimbra.zimbraclient import ZimbraUtilClient
-from vnccollab.zimbra.content import Message
 
 
 class ZimbraUtil:
