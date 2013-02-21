@@ -1,0 +1,4 @@
+Hi Jose,
+
+have you really been using the URL of the redmine project page as a git repository
+instead of using the repo URL mentioned on that page?
