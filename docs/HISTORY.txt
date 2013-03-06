@@ -1,8 +1,9 @@
 Changelog
 =========
 
-1.0
---------------------
+1.0 - Unreleased
+----------------
 
 - Initial release. Migration of code from vnccollab.theme
-  [Jose Dinuncio]
+  [Jose Dinuncio
+]
