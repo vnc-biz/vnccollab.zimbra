@@ -36,7 +36,7 @@ class ZimbraUtil:
     def searchConversations(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.searchConversations(query)
+        return client.searchConversations(**query)
 
     def searchMessages(self, **query):
         ''' '''
