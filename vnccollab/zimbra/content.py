@@ -91,6 +91,12 @@ class Message(MessageBase):
 
         self.mime = mime
 
+    def default_content(self):
+        try:
+            return self.mime.parts[0].content
+        except:
+            return ''
+
 
 class Conversation(MessageBase):
     '''Zimbra Conversation (a mail thread).'''
@@ -107,6 +113,12 @@ class Conversation(MessageBase):
             messages = [messages]
 
         self.messages = [Message(x) for x in messages]
+
+    def default_content(self):
+        try:
+            return self.messages[0].default_content()
+        except:
+            return ''
 
 
 def _date_from_zimbra_date(zimbra_date):
