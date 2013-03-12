@@ -48,7 +48,7 @@ class MIMEPart:
         if type(parts) != list:
             parts = [parts]
 
-        self.parts = [MIMEPart(x) for x in parts]
+        self.parts = [MIMEPart(x) for x in parts if x]
 
 
 class MessageBase:
@@ -82,7 +82,6 @@ class Message(MessageBase):
         self.conversation_id = _safe_get_attr(zimbra_message, 'cid')
         self.original_id = _safe_get_attr(zimbra_message, '_orig_id')
         self.content = _safe_get_node(zimbra_message, 'content')
-        self.multipart = _safe_get_node(zimbra_message, 'mp')
         self.message_id_header = _safe_get_node(zimbra_message, 'mid')
         self.sort_field = _safe_get_attr(zimbra_message, 'sf')
         mime = _safe_get_node(zimbra_message, 'mp', None)
