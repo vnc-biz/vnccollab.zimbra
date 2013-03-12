@@ -42,7 +42,7 @@ class MIMEPart:
         self.filename = _safe_get_attr(zimbra_part, 'filename')
         self.content_id = _safe_get_attr(zimbra_part, 'ci')
         self.content_location = _safe_get_attr(zimbra_part, 'cl')
-        self.content = _safe_get_attr(zimbra_part, 'content')
+        self.content = _safe_get_node(zimbra_part, 'content')
         parts = _safe_get_node(zimbra_part, 'mp', [])
 
         if type(parts) != list:
