@@ -68,7 +68,7 @@ class ZimbraUtilClient:
         return result
 
     def searchRequest(self, klass=None, folder=None,
-            searchable_text=None, **query):
+                      searchable_text=None, **query):
         '''Returns the raw result of  SearchRequest.
 
         Args:

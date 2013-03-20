@@ -36,7 +36,7 @@ class ZimbraUtil:
     def searchConversations(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.searchConversations(query)
+        return client.searchConversations(**query)
 
     def searchMessages(self, **query):
         ''' '''
@@ -52,6 +52,11 @@ class ZimbraUtil:
         ''' '''
         client = self._get_client_for_current_user()
         return client.getMessage(**query)
+
+    def getConversation(self, **query):
+        ''' '''
+        client = self._get_client_for_current_user()
+        return client.getConversation(**query)
 
     def get_address_book(self, offset=0, limit=100):
         ''' '''
