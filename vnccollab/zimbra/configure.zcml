@@ -10,13 +10,7 @@
   <five:registerPackage package="." initialize=".initialize" />
   <grok:grok package="." />
 
-  <genericsetup:registerProfile
-      name="default"
-      title="vnccollab.zimbra"
-      directory="profiles/default"
-      description="Installs the vnccollab.zimbra package"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <include package=".upgrades" />
 
     <utility
       provides=".interfaces.IZimbraUtil"

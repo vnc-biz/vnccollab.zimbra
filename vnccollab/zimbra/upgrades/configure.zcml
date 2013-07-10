@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="vnccollab.zimbra">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="vnccollab.zimbra"
+      directory="profiles/default"
+      description="Installs the vnccollab.zimbra package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>
