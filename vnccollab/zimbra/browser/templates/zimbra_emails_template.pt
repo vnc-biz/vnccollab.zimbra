@@ -1,0 +1,17 @@
+<tal:emails i18n:domain="vnccollab.theme"
+           tal:define="elems options/emails"
+           tal:condition="elems">
+  <tal:items repeat="elem elems">
+  <div class="emailItem" id="email_3838838999498"
+       tal:attributes="id string:email_${elem/id};
+                       class python:elem['unread'] and '%s unread' % attrs['class'] or attrs['class'];
+                       onclick string:zimbra_clickEmail(event, '${elem/id}')">
+    <div class="emailSubject"
+         tal:content="elem/subject">Email Subject</div>
+    <div class="emailItemBody"
+         tal:content="elem/body">
+      Email Body
+    </div>
+  </div>
+  </tal:items>
+</tal:emails>

@@ -3,12 +3,16 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="vnccollab.zimbra">
 
-  <genericsetup:registerProfile
-      name="default"
-      title="vnccollab.zimbra"
-      directory="profiles/default"
-      description="Installs the vnccollab.zimbra package"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
+  <genericsetup:upgradeSteps
+    source="1000"
+    destination="1001"
+    sortkey="1"
+    profile="vnccollab.zimbra:default">
+
+    <genericsetup:upgradeDepends
+      title="Adds zimbra portlets, views, js, browser layer."
+      import_steps="portlets jsregistry browserlayer"
       />
+  </genericsetup:upgradeSteps>
 
 </configure>

@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+<dl class="portlet portletZimbraCalendar"
+    i18n:domain="vnccollab.zimbra"
+    tal:define="purl context/portal_url">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <a href=""
+           target="_blank"
+           tal:attributes="href view/data/url"
+           tal:content="view/title"
+           class="tile">
+            Tags
+        </a>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletBody calendar portletItem noSlimScroll">
+        <iframe
+            tal:attributes="src    view/src;"
+            src=""
+            name="zimbra-calendar"
+            frameborder="0"
+            scrolling="auto">
+        </iframe>
+    </dd>
+</dl>
+</html>

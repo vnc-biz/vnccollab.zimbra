@@ -1,7 +1,8 @@
 from zope.interface import Interface, Attribute
 
-# Content
-#
+
+class IAddOnInstalled(Interface):
+        '''Layer specific intrface for this add-on.'''
 
 
 class IEmailAddress(Interface):

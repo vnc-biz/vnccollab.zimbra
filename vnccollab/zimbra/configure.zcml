@@ -11,9 +11,19 @@
   <grok:grok package="." />
 
   <include package=".upgrades" />
+  <include package=".portlets" />
+  <include package=".browser" />
 
-    <utility
-      provides=".interfaces.IZimbraUtil"
-      component=".util.zimbraUtilInstance"/>
+  <genericsetup:registerProfile
+    name="default"
+    title="vnccollab.zimbra"
+    directory="profiles/default"
+    description="Installs the vnccollab.zimbra package"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+  <utility
+    provides=".interfaces.IZimbraUtil"
+    component=".util.zimbraUtilInstance"/>
 
 </configure>
