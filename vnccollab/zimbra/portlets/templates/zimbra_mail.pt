@@ -33,20 +33,20 @@
         <div class="navBarGroup navBarEmails">
           <span class="buttons1">
             <span class="button backButton"
-                  onclick="zimbra_goBackToFolders(event)">&lt; Menu</span>
+                  onclick="vnc_collab_zimbra_portlets.goBackToFolders(event)">&lt; Menu</span>
             <span class="button refreshButton"
-                  onclick="zimbra_refreshEmails(event, 'inbox')">Refresh</span>
+                  onclick="vnc_collab_zimbra_portlets.refreshEmails(event, 'inbox')">Refresh</span>
           </span>
           <span class="label">Inbox (<span class="count">0</span>)</span>
           <span class="buttons2">
             <span class="button newButton"
-                  onclick="zimbra_newEmail(event)">New</span>
+                  onclick="vnc_collab_zimbra_portlets.newEmail(event)">New</span>
           </span>
         </div>
         <div class="navBarGroup navBarEmail">
           <span class="buttons1">
             <span class="button backButton"
-                  onclick="zimbra_goBackToEmails(event, 'inbox')">&lt; Inbox</span>
+                  onclick="vnc_collab_zimbra_portlets.goBackToEmails(event, 'inbox')">&lt; Inbox</span>
             <span class="button trashButton">Trash</span>
           </span>
           <span class="buttons2">
