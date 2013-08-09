@@ -15,4 +15,14 @@
       />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    sortkey="2"
+    profile="vnccollab.zimbra:default"
+    title="Installs vnccollab.common"
+    handler="vnccollab.zimbra.upgrades.upgrades.upgrade_1001_1002"
+    />
+
+
 </configure>

@@ -26,6 +26,7 @@ setup(name='vnccollab.zimbra',
           'pyzimbra',
           'five.grok',
           'plone.api',
+          'vnccollab.common',
       ],
       entry_points="""
       # -*- Entry points: -*-
