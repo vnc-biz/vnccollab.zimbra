@@ -24,5 +24,13 @@
     handler="vnccollab.zimbra.upgrades.upgrades.upgrade_1001_1002"
     />
 
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    sortkey="3"
+    profile="vnccollab.zimbra:default"
+    title="Replace theme's portlets"
+    handler="vnccollab.zimbra.upgrades.upgrades.upgrade_1001_1002_replace_portlets"
+    />
 
 </configure>

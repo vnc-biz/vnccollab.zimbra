@@ -5,7 +5,7 @@
 
  <portlet
    addview="vnccollab.zimbra.portlets.ZimbraMailPortlet"
-   title="Zimbra Mail Portlet"
+   title="Zimbra: Mail Portlet"
    description="A portlet which can render Zimbra Mail boxes."
    i18n:attributes="title;description">
    <for interface="plone.app.portlets.interfaces.IColumn" />
@@ -14,7 +14,7 @@
 
  <portlet
    addview="vnccollab.zimbra.portlets.ZimbraCalendarPortlet"
-   title="Zimbra Calendar Portlet"
+   title="Zimbra: Calendar Portlet"
    description="A portlet which can render Zimbra Calendar."
    i18n:attributes="title;description">
    <for interface="plone.app.portlets.interfaces.IColumn" />
