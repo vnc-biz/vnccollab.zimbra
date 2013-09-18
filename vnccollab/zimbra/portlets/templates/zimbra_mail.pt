@@ -6,6 +6,7 @@
     i18n:domain="vnccollab.zimbra"
     tal:define="purl context/portal_url">
 
+    <!-- new zimbra mail portlet -->
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
         <a href=""
