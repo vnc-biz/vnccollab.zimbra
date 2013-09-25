@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="">
+<dl class="portlet portletZimbraMail"
+    i18n:domain="vnccollab.zimbra"
+    tal:define="purl context/portal_url">
+
+    <!-- new zimbra mail portlet -->
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <a href=""
+           target="_blank"
+           tal:attributes="href view/data/url"
+           tal:content="view/title"
+           class="tile">
+            Tags
+        </a>
+        <span class="portletTopRight"></span>
+    </dt>
+    <!-- classes description
+       folders - root folders listing
+       emails - inside folder, list of emails; default screen
+       newEmail - new message creation, reply or forward
+       inprogress - side state, e.g. loading more messages
+       hidden - initial load, all bars and body hidden
+       email - single email view
+    -->
+    <dd class="portletBody emails portletItem noSlimScroll">
+      <div class="navBar">
+        <div class="navBarGroup navBarFolders">
+          <span class="label">vitaliypodoba@gmail.com</span>
+        </div>
+        <div class="navBarGroup navBarEmails">
+          <span class="buttons1">
+            <span class="button backButton"
+                  onclick="vnc_collab_zimbra_portlets.goBackToFolders(event)">&lt; Menu</span>
+            <span class="button refreshButton"
+                  onclick="vnc_collab_zimbra_portlets.refreshEmails(event, 'inbox')">Refresh</span>
+          </span>
+          <span class="label">Inbox (<span class="count">0</span>)</span>
+          <span class="buttons2">
+            <span class="button newButton"
+                  onclick="vnc_collab_zimbra_portlets.newEmail(event)">New</span>
+          </span>
+        </div>
+        <div class="navBarGroup navBarEmail">
+          <span class="buttons1">
+            <span class="button backButton"
+                  onclick="vnc_collab_zimbra_portlets.goBackToEmails(event, 'inbox')">&lt; Inbox</span>
+            <span class="button trashButton">Trash</span>
+          </span>
+          <span class="buttons2">
+            <span class="button replyButton">Reply</span>
+            <span class="button forwardButton">Forward</span>
+          </span>
+        </div>
+        <div class="navBarGroup navBarNewEmail">
+          <span class="buttons1">
+            <span class="button backButton">Back</span>
+            <span class="button trashButton">Trash</span>
+          </span>
+          <span class="buttons2">
+            <span class="button saveButton">Save</span>
+            <span class="button sendButton">Send</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="bulkActionsBar">
+        <span class="counter">1</span>
+        <span class="trashButton">Trash</span>
+        <span class="closeButton">x</span>
+      </div>
+
+      <div class="progressBar"><!-- --></div>
+
+      <div class="statusBar">
+        <span class="status"><!-- --></span>
+        <span class="closeButton"><!-- --></span>
+      </div>
+
+      <tal:comment replace="nothing">
+        Main Pane consist of a few views:
+          * foldersView - folders listing, root view
+          * emailsView - emails listing, default view with first defined folder
+          * emailView - single email view
+          * newEmailView - new email creation form, also used for Reply and
+              Forward Email forms
+      </tal:comment>
+      <div class="mainPane">
+        <div class="pane foldersView"><!-- --></div>
+        <div class="pane emailsView"><!-- --></div>
+        <div class="pane emailView">
+          <div class="emailSubject"><!-- --></div>
+          <div class="emailThread"><!-- --></div>
+          <div class="spinner">
+            <img src="++resource++vnccollab.zimbra.images/spinner_arrows.gif"
+                 tal:attributes="src string:${purl}/${attrs/src}" />
+          </div>
+        </div>
+        <div class="newEmailView"><!-- --></div>
+      </div>
+    </dd>
+</dl>
+</html>

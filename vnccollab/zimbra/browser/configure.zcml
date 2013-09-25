@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="vnccollab.zimbra">
+
+  <!-- Resource directory for images -->
+  <browser:resourceDirectory
+    name="vnccollab.zimbra.images"
+    directory="images"
+    />
+
+  <browser:resourceDirectory
+    name="vnccollab.zimbra.js"
+    directory="js"
+    />
+
+  <!-- Pages -->
+  <browser:page
+    for="*"
+    name="zimbra-mail-portlet-view"
+    class=".mail.ZimbraMailPortletView"
+    layer="vnccollab.zimbra.interfaces.IAddOnInstalled"
+    permission="plone.app.portlets.ViewDashboard"
+    />
+
+</configure>
