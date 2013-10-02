@@ -1,4 +1,4 @@
-<tal:emails i18n:domain="vnccollab.theme"
+<tal:emails i18n:domain="vnccollab.zimbra"
            tal:define="elems options/emails"
            tal:condition="elems">
   <tal:items repeat="elem elems">

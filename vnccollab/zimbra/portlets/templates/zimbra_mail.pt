@@ -33,14 +33,14 @@
         </div>
         <div class="navBarGroup navBarEmails">
           <span class="buttons1">
-            <span class="button backButton"
+            <span class="button backButton disabled"
                   onclick="vnc_collab_zimbra_portlets.goBackToFolders(event)">&lt; Menu</span>
             <span class="button refreshButton"
                   onclick="vnc_collab_zimbra_portlets.refreshEmails(event, 'inbox')">Refresh</span>
           </span>
           <span class="label">Inbox (<span class="count">0</span>)</span>
           <span class="buttons2">
-            <span class="button newButton"
+            <span class="button newButton disabled"
                   onclick="vnc_collab_zimbra_portlets.newEmail(event)">New</span>
           </span>
         </div>
@@ -48,21 +48,21 @@
           <span class="buttons1">
             <span class="button backButton"
                   onclick="vnc_collab_zimbra_portlets.goBackToEmails(event, 'inbox')">&lt; Inbox</span>
-            <span class="button trashButton">Trash</span>
+            <span class="button trashButton disabled">Trash</span>
           </span>
           <span class="buttons2">
-            <span class="button replyButton">Reply</span>
-            <span class="button forwardButton">Forward</span>
+            <span class="button replyButton disabled">Reply</span>
+            <span class="button forwardButton disabled">Forward</span>
           </span>
         </div>
         <div class="navBarGroup navBarNewEmail">
           <span class="buttons1">
             <span class="button backButton">Back</span>
-            <span class="button trashButton">Trash</span>
+            <span class="button trashButton disabled">Trash</span>
           </span>
           <span class="buttons2">
-            <span class="button saveButton">Save</span>
-            <span class="button sendButton">Send</span>
+            <span class="button saveButton disabled">Save</span>
+            <span class="button sendButton disabled">Send</span>
           </span>
         </div>
       </div>
