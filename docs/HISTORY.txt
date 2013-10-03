@@ -4,6 +4,9 @@ Changelog
 1.0.1 - March 20, 2013
 ----------------------
 
+- Spacing "from:" label. Remove console log.
+  [Cesar Gonzalez]
+
 - Adds "from:" label.
   [Cesar Gonzalez]
 

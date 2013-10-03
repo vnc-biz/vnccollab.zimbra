@@ -56,7 +56,6 @@ var vnc_collab_zimbra_portlets = (function() {
 
     function success(data, textStatus, jqXHR) {
       // update main emails listing
-      console.log(data['conversation']);
       jq('.emailThread', pane).html(data['conversation']);
       // select item, remove unread class
       jq(jq('.emailItem', container)).removeClass('selected');

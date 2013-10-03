@@ -281,7 +281,10 @@ dl.portletZimbraMail .navBar .refreshButton {
 }
 
 .portletZimbraMail .emailView .emailThread .item-from {
-padding-left: 10px;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: -7px;
+  min-height: 1px;
 }
 
 
