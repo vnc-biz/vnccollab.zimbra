@@ -129,7 +129,7 @@ class ZimbraMailPortletView(BrowserView):
         for item in result:
             from_ = [su(e._getAttr('p')) for e in item.e
                         if e._getAttr('t') == 'f']
-            from_ = from_[0] if len(from_) else ''
+            from_ = 'from: ' + from_[0] if len(from_) else ''
             to = u', '.join([su(e._getAttr('d')) for e in item.e
                         if e._getAttr('t') == 't'])
 
@@ -144,7 +144,7 @@ class ZimbraMailPortletView(BrowserView):
                     tag.replaceWithChildren()
 
             thread.append({
-                'from': from_,
+                'from': '<div class="item-from">' + from_ + '</div>',
                 'to': to,
                 'body': ''.join(unicode(soup)),
                 'id': item._getAttr('_orig_id'),

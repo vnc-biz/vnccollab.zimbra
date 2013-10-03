@@ -280,6 +280,11 @@ dl.portletZimbraMail .navBar .refreshButton {
     color: #898D9B;
 }
 
+.portletZimbraMail .emailView .emailThread .item-from {
+padding-left: 10px;
+}
+
+
 .portletZimbraMail .emailView .emailThread .item-thread {
     margin: 10px 6px;
     background-color: white;
