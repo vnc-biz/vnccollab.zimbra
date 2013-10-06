@@ -83,6 +83,8 @@ var vnc_collab_zimbra_portlets = (function() {
     var container = target.parents('.portletBody');
     var pane = jq('.emailsView', container);
 
+    container.addClass('inprogress');
+
     function success(data, textStatus, jqXHR) {
       // update main emails listing
       pane.html(data['emails']);
@@ -97,7 +99,6 @@ var vnc_collab_zimbra_portlets = (function() {
     }
 
     // load folder emails from the server
-    container.addClass('inprogress');
     jq.post(portal_url + '/@@zimbra-mail-portlet-view',
       {'action': 'emails',
        'folder': folder,
