@@ -15,6 +15,8 @@ from vnccollab.theme.zimbrautil import IZimbraUtil
 from vnccollab.theme.portlets.zimbra_mail import Renderer
 from vnccollab.zimbra import messageFactory as _
 
+from BeautifulSoup import BeautifulSoup
+
 
 def findMsgBody(node, format='text/html'):
     """Recursively goes over attachments and finds body"""
@@ -127,19 +129,29 @@ class ZimbraMailPortletView(BrowserView):
         for item in result:
             from_ = [su(e._getAttr('p')) for e in item.e
                         if e._getAttr('t') == 'f']
-            from_ = from_[0] if len(from_) else ''
+            from_ = 'from: ' + from_[0] if len(from_) else ''
             to = u', '.join([su(e._getAttr('d')) for e in item.e
                         if e._getAttr('t') == 't'])
 
+            soup = BeautifulSoup(findMsgBody(item))
+            [elem.decompose() for elem in soup.findAll(['script', 'style'])]
+
+            for tag in soup():
+                for attribute in ['style']:
+                    del tag[attribute]
+                if tag.name in ['html', 'head', 'body']:
+                    tag.append(' ')
+                    tag.replaceWithChildren()
+
             thread.append({
-                'from': from_,
+                'from': '<div class="item-from">' + from_ + '</div>',
                 'to': to,
-                'body': findMsgBody(item),
+                'body': ''.join(unicode(soup)),
                 'id': item._getAttr('_orig_id'),
                 'date': item._getAttr('d'),
             })
 
-        return {'conversation': '<br />'.join([t['from'] + ': ' + t['body']
+        return {'conversation': ''.join([t['from'] + '<div class="item-thread">' + t['body'] + '</div>'
             for t in thread])}
 
     def create_email(self):

@@ -33,4 +33,16 @@
     handler="vnccollab.zimbra.upgrades.upgrades.upgrade_1001_1002_replace_portlets"
     />
 
+  <genericsetup:upgradeSteps
+    source="1002"
+    destination="1003"
+    sortkey="4"
+    profile="vnccollab.zimbra:default">
+
+    <genericsetup:upgradeDepends
+      title="Adds css."
+      import_steps="cssregistry"
+      />
+    </genericsetup:upgradeSteps>
+
 </configure>
