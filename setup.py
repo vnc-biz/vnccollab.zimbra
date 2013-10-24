@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0.1'
+version = '1.0.2'
 
 setup(name='vnccollab.zimbra',
       version=version,
@@ -13,8 +13,8 @@ setup(name='vnccollab.zimbra',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='',
-      author_email='',
+      author='Jose Dinuncio',
+      author_email='jose.dinuncio@vnc.biz',
       url='http://svn.plone.org/svn/collective/',
       license='gpl',
       packages=find_packages(exclude=['ez_setup']),
@@ -26,6 +26,7 @@ setup(name='vnccollab.zimbra',
           'pyzimbra',
           'five.grok',
           'plone.api',
+          'vnccollab.common',
       ],
       entry_points="""
       # -*- Entry points: -*-

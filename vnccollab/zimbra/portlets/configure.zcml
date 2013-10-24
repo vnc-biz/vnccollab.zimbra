@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="vnccollab.zimbra">
+
+
+  <plone:portlet
+      name="vnccollab.zimbra.portlets.ZimbraMailPortlet"
+      interface=".zimbra_mail.IZimbraMailPortlet"
+      assignment=".zimbra_mail.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".zimbra_mail.Renderer"
+      addview=".zimbra_mail.AddForm"
+      editview=".zimbra_mail.EditForm"
+      />
+
+  <plone:portlet
+      name="vnccollab.zimbra.portlets.ZimbraCalendarPortlet"
+      interface=".zimbra_calendar.IZimbraCalendarPortlet"
+      assignment=".zimbra_calendar.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".zimbra_calendar.Renderer"
+      addview=".zimbra_calendar.AddForm"
+      editview=".zimbra_calendar.EditForm"
+      />
+
+
+</configure>

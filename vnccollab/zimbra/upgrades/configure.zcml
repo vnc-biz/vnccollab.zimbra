@@ -1,0 +1,48 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="vnccollab.zimbra">
+
+  <genericsetup:upgradeSteps
+    source="1000"
+    destination="1001"
+    sortkey="1"
+    profile="vnccollab.zimbra:default">
+
+    <genericsetup:upgradeDepends
+      title="Adds zimbra portlets, views, js, browser layer."
+      import_steps="portlets jsregistry browserlayer"
+      />
+  </genericsetup:upgradeSteps>
+
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    sortkey="2"
+    profile="vnccollab.zimbra:default"
+    title="Installs vnccollab.common"
+    handler="vnccollab.zimbra.upgrades.upgrades.upgrade_1001_1002"
+    />
+
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    sortkey="3"
+    profile="vnccollab.zimbra:default"
+    title="Replace theme's portlets"
+    handler="vnccollab.zimbra.upgrades.upgrades.upgrade_1001_1002_replace_portlets"
+    />
+
+  <genericsetup:upgradeSteps
+    source="1002"
+    destination="1003"
+    sortkey="4"
+    profile="vnccollab.zimbra:default">
+
+    <genericsetup:upgradeDepends
+      title="Adds css."
+      import_steps="cssregistry"
+      />
+    </genericsetup:upgradeSteps>
+
+</configure>

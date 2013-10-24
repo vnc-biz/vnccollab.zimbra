@@ -1,8 +1,30 @@
 Changelog
 =========
 
+1.0.2 - October 24, 2013
+------------------------
+
+- Fixes license and adds AUTHORS.txt.
+  [Jose Dinuncio]
+
+- Updates to zimbra email portlet
+  [Cesar Gonzalez]
+
 1.0.1 - March 20, 2013
 ----------------------
+
+- Spacing "from:" label. Remove console log.
+  [Cesar Gonzalez]
+
+- Adds "from:" label.
+  [Cesar Gonzalez]
+
+- Style zimbra email portlet.
+  [Cesar Gonzalez]
+
+- Adds css resource dir, import css from theme, adds upgrade step,
+  clean email body.
+  [Cesar Gonzalez]
 
 - Adds default_content() for messages and conversations.
   [Jose]
