@@ -57,6 +57,8 @@ class ZimbraUtilClient:
         else:
             self.authenticated = False
 
+        return self.authenticated
+
     @refreshAuthToken
     def _invoke(self, command, query):
         result = self.client.invoke('urn:zimbraMail', command, query)

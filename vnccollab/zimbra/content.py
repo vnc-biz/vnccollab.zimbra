@@ -68,7 +68,7 @@ class MessageBase:
     def _addresses(self, addressList):
         if type(addressList) != list:
             addressList = [addressList]
-        addressList = [x for x in addressList if type(x) != str]
+        addressList = [x for x in addressList if type(x) not in (str, unicode)]
         return [EmailAddress(x) for x in addressList]
 
 

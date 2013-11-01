@@ -26,4 +26,18 @@
     provides=".interfaces.IZimbraUtil"
     component=".util.zimbraUtilInstance"/>
 
+  <!-- Vocaubularies -->
+  <utility
+      component=".vocabularies.StatusZimbraTaskVocabulary"
+      name="vnccollab.zimbra.vocabularies.StatusZimbraTaskVocabulary"
+      />
+  <utility
+      component=".vocabularies.PrioritiesZimbraTaskVocabulary"
+      name="vnccollab.zimbra.vocabularies.PrioritiesZimbraTaskVocabulary"
+      />
+  <utility
+      component=".vocabularies.PercentageZimbraTaskVocabulary"
+      name="vnccollab.zimbra.vocabularies.PercentageZimbraTaskVocabulary"
+      />
+
 </configure>

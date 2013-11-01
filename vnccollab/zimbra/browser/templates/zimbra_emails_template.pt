@@ -1,15 +1,15 @@
-<tal:emails i18n:domain="vnccollab.theme"
+<tal:emails i18n:domain="vnccollab.zimbra"
            tal:define="elems options/emails"
            tal:condition="elems">
   <tal:items repeat="elem elems">
   <div class="emailItem" id="email_3838838999498"
-       tal:attributes="id string:email_${elem/id};
-                       class python:elem['unread'] and '%s unread' % attrs['class'] or attrs['class'];
-                       onclick string:vnc_collab_zimbra_portlets.clickEmail(event, '${elem/id}')">
+       tal:attributes="id string:email_${elem/original_id};
+                       class python:u'u' in elem.flags and '%s unread' % attrs['class'] or attrs['class'];
+                       onclick string:vnc_collab_zimbra_portlets.clickEmail(event, '${elem/original_id}')">
     <div class="emailSubject"
          tal:content="elem/subject">Email Subject</div>
     <div class="emailItemBody"
-         tal:content="elem/body">
+         tal:content="elem/fragment">
       Email Body
     </div>
   </div>

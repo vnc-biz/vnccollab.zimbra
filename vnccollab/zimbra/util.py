@@ -33,6 +33,17 @@ class ZimbraUtil:
         username, password = self._get_credentials()
         return self._get_client(url, username, password)
 
+    def authenticate(self):
+        '''Test if the current user is authenticated.'''
+        client = self._get_client_for_current_user()
+        return client.authenticate()
+
+    def get_email_address(self):
+        '''Returns the email address of the current user.'''
+        member = api.user.get_current()
+        email = member.getProperty('email', '')
+        return email
+
     def searchConversations(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
@@ -48,15 +59,25 @@ class ZimbraUtil:
         client = self._get_client_for_current_user()
         return client.searchTasks(**query)
 
-    def getMessage(self, **query):
+    def get_messages(self, **query):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.getMessage(**query)
+        return client.searchMessages(**query)
 
-    def getConversation(self, **query):
+    def get_message(self, eid):
         ''' '''
         client = self._get_client_for_current_user()
-        return client.getConversation(**query)
+        return client.getMessage(id=eid, html='1')
+
+    def get_conversations(self, **query):
+        ''' '''
+        client = self._get_client_for_current_user()
+        return client.searchConversations(**query)
+
+    def get_conversation(self, eid):
+        ''' '''
+        client = self._get_client_for_current_user()
+        return client.getConversation(id=eid, fetch='all', html='1')
 
     def get_address_book(self, offset=0, limit=100):
         ''' '''
