@@ -8,9 +8,11 @@
                        onclick string:vnc_collab_zimbra_portlets.clickEmail(event, '${elem/original_id}')">
     <div class="emailSubject"
          tal:content="elem/subject">Email Subject</div>
-    <div class="emailItemBody"
-         tal:content="elem/fragment">
-      Email Body
+    <div class="emailItemBody">
+         <span tal:replace="python:view.display_name(elem)">Name</span>
+         (<span tal:replace="elem/num_messages">num messages</span>) -
+         <span tal:replace="elem/subject">Subject</span> -
+         <span tal:replace="elem/fragment">Email Fragment</span>
     </div>
   </div>
   </tal:items>

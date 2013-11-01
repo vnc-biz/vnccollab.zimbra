@@ -86,9 +86,9 @@ class ZimbraMailPortletView(BrowserView):
                    sent messages and conversations
           @sort_by - sort result set by given field
         """
-        emails = self.client.get_messages(folder=folder, offset=offset,
-                                          limit=limit, recip=recip,
-                                          sortBy=sortBy)
+        emails = self.client.get_conversations(folder=folder, offset=offset,
+                                               limit=limit, recip=recip,
+                                               sortBy=sortBy)
         return {'emails': self._emails_template(emails=emails).encode('utf-8')}
 
     def get_email(self, eid):
@@ -134,6 +134,13 @@ class ZimbraMailPortletView(BrowserView):
 
     def create_email(self):
         return None
+
+    def display_name(self, conversation):
+        addresses = conversation.addresses
+        if addresses:
+            return addresses[0].display_name
+        else:
+            return ''
 
     @memoize
     def _data(self, portlethash):
