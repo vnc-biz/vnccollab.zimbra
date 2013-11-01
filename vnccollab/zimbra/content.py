@@ -102,6 +102,7 @@ class Conversation(MessageBase):
     '''Zimbra Conversation (a mail thread).'''
     def __init__(self, zimbra_conversation):
         MessageBase.__init__(self, zimbra_conversation)
+        self.original_id = _safe_get_attr(zimbra_conversation, '_orig_id')
         self.tags = _safe_get_attr(zimbra_conversation, 't')
         self.num_messages = int(_safe_get_attr(zimbra_conversation, 'n', 0))
         self.total = _safe_get_attr(zimbra_conversation, 'total')
