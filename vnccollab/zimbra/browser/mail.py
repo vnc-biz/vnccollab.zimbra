@@ -1,6 +1,7 @@
 import types
 import simplejson
 from Acquisition import aq_inner
+from BeautifulSoup import BeautifulSoup
 
 from zope.component import getUtility
 from Products.Five.browser import BrowserView
@@ -101,15 +102,35 @@ class ZimbraMailPortletView(BrowserView):
         conversation = self.client.get_conversation(eid)
         thread = []
         for message in conversation.messages:
-            thread.append({
-                'from' : _mail(message, EmailAddress.FROM),
-                'to'   : _mail(message, EmailAddress.TO),
-                'id'   : message.original_id,
-                'date' : message.date,
-                'body' : findMsgBody(message.raw)})
+            from_ = _name(message, EmailAddress.FROM)
 
-        return {'conversation': '<br />'.join([t['from'] + ': ' + t['body']
-                for t in thread])}
+            if len(from_):
+                from_ = 'from: ' + from_[0]
+            else:
+                from_ = ''
+
+            to = u', '.join(_mail(message, EmailAddress.TO))
+
+            soup = BeautifulSoup(findMsgBody(message.raw))
+            [elem.decompose() for elem in soup.findAll(['script', 'style'])]
+
+            for tag in soup():
+                for attribute in ['style']:
+                    del tag[attribute]
+                if tag.name in ['html', 'head', 'body']:
+                    tag.append(' ')
+                    tag.replaceWithChildren()
+
+            thread.append({
+                'from': '<div class="item-from">' + from_ + '</div>',
+                'to': to,
+                'body': ''.join(unicode(soup)),
+                'id': message.original_id,
+                'date': message.date,
+            })
+
+        return {'conversation': ''.join([t['from'] + '<div class="item-thread">' + t['body'] + '</div>'
+            for t in thread])}
 
     def create_email(self):
         return None
@@ -157,5 +178,12 @@ def findMsgBody(node, format='text/html'):
 
 def _mail(message, type):
     mails = message.filter_addresses(type)
-    result = ','.join([x.email_address for x in mails])
+    result = [x.email_address for x in mails]
     return result
+
+
+def _name(message, type):
+    mails = message.filter_addresses(type)
+    result = [x.personal_name for x in mails]
+    return result
+
