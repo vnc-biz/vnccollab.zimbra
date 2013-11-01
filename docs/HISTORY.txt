@@ -1,12 +1,20 @@
 Changelog
 =========
 
-1.0.2 - unreleased
+1.0.3 - Unreleased
 ------------------
+
+- Fixes grey background for viewed emails in zimbra email portlet.
+  [Cesar Gonzalez]
+
+1.0.2 - October 24, 2013
+------------------------
 
 - Fixes license and adds AUTHORS.txt.
   [Jose Dinuncio]
 
+- Updates to zimbra email portlet
+  [Cesar Gonzalez]
 
 1.0.1 - March 20, 2013
 ----------------------
