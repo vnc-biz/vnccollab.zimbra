@@ -26,6 +26,8 @@ setup(name='vnccollab.zimbra',
           'pyzimbra',
           'five.grok',
           'plone.api',
+          'BeautifulSoup',
+          'collective.z3cform.datepicker',
           'vnccollab.common',
       ],
       entry_points="""
