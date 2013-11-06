@@ -26,6 +26,13 @@
     provides=".interfaces.IZimbraUtil"
     component=".util.zimbraUtilInstance"/>
 
+  <!-- Extends user data schema -->
+  <adapter factory=".userdataschema.UserDataSchemaAdapter"
+           name="zimbra_userdatascheme.ExtraField"/>
+
+  <adapter factory=".userdataschema.UserDataSchemaPropertiesAdapter"
+           name="zimbra_userdatascheme.ExtraProperties"/>
+
   <!-- Vocaubularies -->
   <utility
       component=".vocabularies.StatusZimbraTaskVocabulary"
