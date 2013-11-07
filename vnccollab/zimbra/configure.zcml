@@ -6,6 +6,7 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="vnccollab.zimbra">
 
+  <include package="collective.customizablePersonalizeForm" />
   <include package="five.grok" />
   <five:registerPackage package="." initialize=".initialize" />
   <grok:grok package="." />
@@ -25,5 +26,26 @@
   <utility
     provides=".interfaces.IZimbraUtil"
     component=".util.zimbraUtilInstance"/>
+
+  <!-- Extends user data schema -->
+  <adapter factory=".userdataschema.UserDataSchemaAdapter"
+           name="zimbra_userdatascheme.ExtraField"/>
+
+  <adapter factory=".userdataschema.UserDataSchemaPropertiesAdapter"
+           name="zimbra_userdatascheme.ExtraProperties"/>
+
+  <!-- Vocaubularies -->
+  <utility
+      component=".vocabularies.StatusZimbraTaskVocabulary"
+      name="vnccollab.zimbra.vocabularies.StatusZimbraTaskVocabulary"
+      />
+  <utility
+      component=".vocabularies.PrioritiesZimbraTaskVocabulary"
+      name="vnccollab.zimbra.vocabularies.PrioritiesZimbraTaskVocabulary"
+      />
+  <utility
+      component=".vocabularies.PercentageZimbraTaskVocabulary"
+      name="vnccollab.zimbra.vocabularies.PercentageZimbraTaskVocabulary"
+      />
 
 </configure>

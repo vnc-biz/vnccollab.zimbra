@@ -41,16 +41,28 @@ class IMessage(Interface):
 class IZimbraUtil(Interface):
     """Interface for Zimbra Utility"""
 
+    def authenticate():
+        ''' '''
+
+    def get_email_address():
+        ''' '''
+
     def search(query):
         ''' '''
 
     def get_raw_emails(**query):
         ''' '''
 
-    def get_emails(**query):
+    def get_messages(**query):
         ''' '''
 
-    def get_email(eid):
+    def get_message(eid):
+        ''' '''
+
+    def get_conversations(**query):
+        ''' '''
+
+    def get_conversation(eid):
         ''' '''
 
     def get_email_thread(eid):
