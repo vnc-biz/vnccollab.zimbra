@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.0.3 - November 20, 2013
+-------------------------
+
+- Removes dependencies from vnccollab.theme [7543]
+  [Jose Dinuncio]
+
+- Fixes grey background for viewed emails in zimbra email portlet.
+  [Cesar Gonzalez]
+
 1.0.2 - October 24, 2013
 ------------------------
 

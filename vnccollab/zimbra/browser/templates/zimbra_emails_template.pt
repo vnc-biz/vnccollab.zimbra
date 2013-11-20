@@ -3,14 +3,16 @@
            tal:condition="elems">
   <tal:items repeat="elem elems">
   <div class="emailItem" id="email_3838838999498"
-       tal:attributes="id string:email_${elem/id};
-                       class python:elem['unread'] and '%s unread' % attrs['class'] or attrs['class'];
-                       onclick string:vnc_collab_zimbra_portlets.clickEmail(event, '${elem/id}')">
+       tal:attributes="id string:email_${elem/original_id};
+                       class python:u'u' in elem.flags and '%s unread' % attrs['class'] or attrs['class'];
+                       onclick string:vnc_collab_zimbra_portlets.clickEmail(event, '${elem/original_id}')">
     <div class="emailSubject"
          tal:content="elem/subject">Email Subject</div>
-    <div class="emailItemBody"
-         tal:content="elem/body">
-      Email Body
+    <div class="emailItemBody">
+         <span tal:replace="python:view.display_name(elem)">Name</span>
+         (<span tal:replace="elem/num_messages">num messages</span>) -
+         <span tal:replace="elem/subject">Subject</span> -
+         <span tal:replace="elem/fragment">Email Fragment</span>
     </div>
   </div>
   </tal:items>

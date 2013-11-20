@@ -10,8 +10,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from collective.z3cform.datepicker.widget import DatePickerFieldWidget
 
 from vnccollab.zimbra import messageFactory as _
-from vnccollab.theme.zimbrautil import IZimbraUtil
-import vnccollab.theme.util as util
+from vnccollab.zimbra.util import IZimbraUtil
+from vnccollab.zimbra import annotations
 
 
 class BothDatesError(Invalid):
@@ -35,21 +35,21 @@ class IZimbraTaskForm(Interface):
     status = schema.Choice(
         title=_(u"Status"),
         description=u'',
-        vocabulary='vnccollab.theme.vocabularies.StatusZimbraTaskVocabulary',
+        vocabulary='vnccollab.zimbra.vocabularies.StatusZimbraTaskVocabulary',
         required=True)
 
     # we end it with _ to avoid conflicts in newtask.py
     priority_ = schema.Choice(
         title=_(u"Priority"),
         description=u'',
-        vocabulary='vnccollab.theme.vocabularies.PrioritiesZimbraTaskVocabulary',
+        vocabulary='vnccollab.zimbra.vocabularies.PrioritiesZimbraTaskVocabulary',
         default='5',
         required=True)
 
     percentComplete = schema.Choice(
         title=_(u"Percentage of Completion"),
         description=u'',
-        vocabulary='vnccollab.theme.vocabularies.PercentageZimbraTaskVocabulary',
+        vocabulary='vnccollab.zimbra.vocabularies.PercentageZimbraTaskVocabulary',
         required=True)
 
     startDate = schema.Date(
@@ -73,7 +73,8 @@ class IZimbraTaskForm(Interface):
         if not data.startDate and not data.endDate:
             return
         if not data.startDate or not data.endDate:
-            raise BothDatesError(_("You must set both start and end date or none."))
+            raise BothDatesError(_(u"You must set both start and end "
+                                   u"date or none."))
 
 
 class ZimbraTaskForm(form.Form):
@@ -104,28 +105,14 @@ class ZimbraTaskForm(form.Form):
             self.status = self.formErrorsMessage
             return
 
-        url = util.getZimbraUrl(self.context)
-        username, password = util.getZimbraCredentials(self.context)
-        if not username or not password or not url:
-            if not username or not password:
-                msg = _(u"Please, set correct zimbra username and password in "
-                "your profile form in order to create a zimbra task.")
-            else:
-                msg = _(u"Please, set Zimbra URL in Control "
-                    " Panel (Configuration Registry).")
-            # issue form level error
-            self.status = msg
-            error = getMultiAdapter((Invalid(u''), self.request, None,
-                None, self, self.context), IErrorViewSnippet)
-            error.update()
-            self.widgets.errors += (error,)
-            return
+        zimbraUtil = getUtility(IZimbraUtil)
+        if not zimbraUtil.authenticate():
+            return self.error(u"Authentication Error. Problem in the "
+                              u"login/password or Zimbra URL.")
 
         created = False
         try:
-            zimbraUtil = getUtility(IZimbraUtil)
-            client = zimbraUtil.get_client(url, username, password)
-            email = util.getZimbraEmail(self.context)
+            email = zimbraUtil.get_email_address()
             url = self.context.absolute_url()
             description = self.context.Description()
             content = u'%s\n\n%s' % (url, description)
@@ -134,34 +121,32 @@ class ZimbraTaskForm(form.Form):
             data['subject'] = data['subject_']
             data['priority'] = data['priority_']
             data['content'] = content
-            task = client.create_task(data)
-            util.addZimbraAnnotatedTasks(self.context, task)
+            task = zimbraUtil.create_task(data)
+            annotations.addZimbraAnnotatedTasks(self.context, task)
             created = True
 
         except Exception:
             plone_utils = getToolByName(self.context, 'plone_utils')
             exception = plone_utils.exceptionString()
-            self.status = _(u"Unable create issue: ${exception}",
-                mapping={u'exception': exception})
-            error = getMultiAdapter((Invalid(u''), self.request, None,
-                None, self, self.context), IErrorViewSnippet)
-            error.update()
-            self.widgets.errors += (error,)
-            return
+            return self.error(u"Unable create issue: " + str(exception))
 
         else:
             if not created:
-                self.status = _(u"Task wasn't created, please, check your "
-                    "settings or contact site administrator if you are sure "
-                    "your settings are set properly.")
-                error = getMultiAdapter((Invalid(u''), self.request, None,
-                    None, self, self.context), IErrorViewSnippet)
-                error.update()
-                self.widgets.errors += (error,)
-                return
+                return self.error(u"Task wasn't created, please, check your "
+                                  u"settings or contact site administrator "
+                                  u"if you are sure your settings are set "
+                                  u"properly.")
 
         self.status = self.successMessage
         IStatusMessage(self.request).addStatusMessage(self.successMessage,
-            type='info')
-        came_from = self.request.get('HTTP_REFERER') or self.context.absolute_url()
+                                                      type='info')
+        came_from = self.request.get('HTTP_REFERER') \
+            or self.context.absolute_url()
         return self.request.response.redirect(came_from)
+
+    def error(self, msg):
+        self.status = msg
+        error = getMultiAdapter((Invalid(u''), self.request, None,
+                                 None, self, self.context), IErrorViewSnippet)
+        error.update()
+        self.widgets.errors += (error,)
