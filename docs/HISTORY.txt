@@ -4,6 +4,9 @@ Changelog
 1.0.5 - unreleased
 ------------------------
 
+- Adds folder selection to mail portlet.
+  [Jose Dinuncio]
+
 - Adds version.txt.
   [Jose Dinuncio]
 

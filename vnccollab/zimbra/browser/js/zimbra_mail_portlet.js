@@ -76,12 +76,16 @@ var vnc_collab_zimbra_portlets = (function() {
     return false;
   }
 
-  function zimbra_refreshEmails(event, folder) {
+  function zimbra_refreshEmails(event) {
     // loads conversations listing into emails screen
     var target = jq(event.target);
     var portlet = target.parents('.portletZimbraMail').parent();
     var container = target.parents('.portletBody');
     var pane = jq('.emailsView', container);
+    var folder = jq('#zimbra-mail-folder-selector').val();
+    if (folder === '') {
+      folder = 'inbox';
+    }
 
     container.addClass('inprogress');
 

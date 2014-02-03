@@ -122,6 +122,26 @@ class Conversation(MessageBase):
             return ''
 
 
+class Folder:
+    '''Zimbra Folder'''
+    def __init__(self, zimbra_folder):
+        self.raw = zimbra_folder
+        self.id = _safe_get_attr(zimbra_folder, 'id')
+        self.uuid = _safe_get_attr(zimbra_folder, 'uuid')
+        self.name = _safe_get_attr(zimbra_folder, 'name')
+        self.parent_id = _safe_get_attr(zimbra_folder, 'l')
+        self.parent_uuid = _safe_get_attr(zimbra_folder, 'luuid')
+        self.absFolderPath = _safe_get_attr(zimbra_folder, 'absFolderPath')
+        self.flags = _safe_get_attr(zimbra_folder, 'f')
+        self.unread = int(_safe_get_attr(zimbra_folder, 'u', 0))
+        self.type = _safe_get_attr(zimbra_folder, 'view')
+        subs = _safe_get_node(zimbra_folder, 'folder', [])
+        if not isinstance(subs, list):
+            subs = [subs]
+        folders = [Folder(x) for x in subs if _safe_get_attr(x, 'name')]
+        self.folders = folders
+
+
 def _date_from_zimbra_date(zimbra_date):
     if not zimbra_date:
         date = None
@@ -131,10 +151,14 @@ def _date_from_zimbra_date(zimbra_date):
 
 
 def _safe_get_attr(zimbra, key, default=u''):
+    if isinstance(zimbra, basestring):
+        return default
     return _safe(_get_attr(zimbra, key, default))
 
 
 def _safe_get_node(zimbra, key, default=u''):
+    if isinstance(zimbra, basestring):
+        return default
     return _safe(_get_node(zimbra, key, default))
 
 

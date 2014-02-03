@@ -29,40 +29,30 @@
     <dd class="portletBody emails portletItem noSlimScroll">
       <div class="navBar">
         <div class="navBarGroup navBarFolders">
-          <span class="label">vitaliypodoba@gmail.com</span>
+          <span class="label"></span>
         </div>
         <div class="navBarGroup navBarEmails">
           <span class="buttons1">
-            <span class="button backButton disabled"
-                  onclick="vnc_collab_zimbra_portlets.goBackToFolders(event)">&lt; Menu</span>
             <span class="button refreshButton"
                   onclick="vnc_collab_zimbra_portlets.refreshEmails(event, 'inbox')">Refresh</span>
-          </span>
-          <span class="label">Inbox (<span class="count">0</span>)</span>
-          <span class="buttons2">
-            <span class="button newButton disabled"
-                  onclick="vnc_collab_zimbra_portlets.newEmail(event)">New</span>
+            <select name="zimbra-mail-folder-selector" id="zimbra-mail-folder-selector"
+                    onchange="vnc_collab_zimbra_portlets.refreshEmails(event, 'inbox')">
+              <option tal:repeat="folder view/folders"
+                      tal:attributes="value python:folder[0];
+                                      selected python:folder[2]"
+                      tal:content="python:folder[1]"></option>
+            </select>
           </span>
         </div>
         <div class="navBarGroup navBarEmail">
           <span class="buttons1">
             <span class="button backButton"
-                  onclick="vnc_collab_zimbra_portlets.goBackToEmails(event, 'inbox')">&lt; Inbox</span>
-            <span class="button trashButton disabled">Trash</span>
-          </span>
-          <span class="buttons2">
-            <span class="button replyButton disabled">Reply</span>
-            <span class="button forwardButton disabled">Forward</span>
+                  onclick="vnc_collab_zimbra_portlets.goBackToEmails(event, 'inbox')">&lt; Back</span>
           </span>
         </div>
         <div class="navBarGroup navBarNewEmail">
           <span class="buttons1">
             <span class="button backButton">Back</span>
-            <span class="button trashButton disabled">Trash</span>
-          </span>
-          <span class="buttons2">
-            <span class="button saveButton disabled">Save</span>
-            <span class="button sendButton disabled">Send</span>
           </span>
         </div>
       </div>
