@@ -4,6 +4,9 @@ Changelog
 1.0.5 - unreleased
 ------------------------
 
+- Improves error messages in calendar portlet [9918].
+  [Jose Dinuncio]
+
 - Adds version.txt.
   [Jose Dinuncio]
 
