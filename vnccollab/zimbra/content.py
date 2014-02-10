@@ -56,7 +56,7 @@ class MessageBase:
         self.raw = zimbra_object
         self.id = _safe_get_attr(zimbra_object, 'id')
         self.flags = _safe_get_attr(zimbra_object, 'f')
-        self.date = _date_from_zimbra_date(_get_attr(zimbra_object, 'd'))
+        self.date = _date_from_zimbra_date(_safe_get_attr(zimbra_object, 'd'))
         self.subject = _safe_get_node(zimbra_object, 'su')
         self.fragment = _safe_get_node(zimbra_object, 'fr')
         self.addresses = self._addresses(_safe_get_node(zimbra_object,
