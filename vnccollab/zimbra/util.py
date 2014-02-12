@@ -89,5 +89,11 @@ class ZimbraUtil:
         client = self._get_client_for_current_user()
         return client.create_task(dct)
 
+    def get_search_folder(self, **query):
+        '''Returns the list of folders for the current user.'''
+        client = self._get_client_for_current_user()
+        result = client.get_search_folder(**query)
+        return result
+
 
 zimbraUtilInstance = ZimbraUtil()

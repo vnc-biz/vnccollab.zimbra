@@ -7,6 +7,9 @@ Changelog
 - Improves error messages in calendar portlet [9918].
   [Jose Dinuncio]
 
+- Adds folder selection to mail portlet.
+  [Jose Dinuncio]
+
 - Adds version.txt.
   [Jose Dinuncio]
 
