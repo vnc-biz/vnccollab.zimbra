@@ -54,8 +54,9 @@ class IZimbraCalendarPortlet(IPortletDataProvider):
 
     timeout = schema.Int(
         title=_(u"Data reload timeout"),
-        description=_(u"Time in minutes after which the data should be reloaded"
-                      " from Zimbra service. Minimun value: 1 minute."),
+        description=_(u"Time in minutes after which the data should be "
+                      u"reloaded from Zimbra service. Minimun value: "
+                      u"1 minute."),
         required=True,
         default=5,
         min=1)
@@ -137,7 +138,7 @@ class Renderer(base.Renderer):
     def src(self):
         '''Returs the url of the zimbra calendar'''
         username, password = self.getAuthCredentials()
-        src = '%s/service/home/%s@%s/%s.html' % (
-               self.data.url, username, self.data.mail_domain,
-               self.data.calendar_name)
+        src = '%s/service/home/%s@%s/%s.html?auth=ba' % (
+              self.data.url, username, self.data.mail_domain,
+              self.data.calendar_name)
         return src
