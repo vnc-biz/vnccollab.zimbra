@@ -19,24 +19,14 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletBody calendar portletItem noSlimScroll"
-        tal:define="credentials_error_message view/check_credentials;">
+    <dd class="portletBody calendar portletItem noSlimScroll">
         <iframe
-            tal:condition="not:credentials_error_message"
-            tal:attributes="src    view/src;"
+            tal:attributes="src    string:${purl}/zimbra-calendar?url=${view/src};"
             src=""
             name="zimbra-calendar"
             frameborder="0"
             scrolling="auto">
         </iframe>
-
-        <tal:error condition="credentials_error_message">
-          <span tal:replace="credentials_error_message">Error</span>
-          <br>
-          <span i18n:translate="">You can check your zimbra credentials</span>
-          <a href="" i18n:translate=""
-             tal:attributes="href string:${purl}/@@personal-information">here</a>.
-        </tal:error>
     </dd>
 </dl>
 </html>

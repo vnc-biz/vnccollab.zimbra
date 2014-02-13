@@ -1,0 +1,11 @@
+<tal:main define="page_info python:view.getPageInfo();
+                  error     python:page_info[0];
+                  page      python:page_info[1];">
+  <div tal:condition="error">
+    <span tal:replace="error">Error Message</span>
+  </div>
+
+  <tal:page condition="not:error"
+            replace="structure page">
+  </tal:page>
+</tal:main>
