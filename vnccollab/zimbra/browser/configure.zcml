@@ -28,4 +28,12 @@
     permission="plone.app.portlets.ViewDashboard"
     />
 
+  <browser:page
+    for="*"
+    name="zimbra-calendar"
+    class=".calendar.ZimbraCalendarView"
+    layer="vnccollab.zimbra.interfaces.IAddOnInstalled"
+    permission="plone.app.portlets.ViewDashboard"
+    />
+
 </configure>
