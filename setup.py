@@ -8,7 +8,7 @@ setup(
     version=version,
     description="VNC Collaboration Zimbra AddOn.",
     long_description=open("README.txt").read() + "\n" +
-                     open(os.path.join("docs", "HISTORY.txt")).read(),
+        open(os.path.join("docs", "HISTORY.txt")).read(),
     classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
@@ -27,6 +27,7 @@ setup(
         'pyzimbra',
         'five.grok',
         'plone.api',
+        'requests',
         'BeautifulSoup',
         'collective.customizablePersonalizeForm',
         'collective.z3cform.datepicker',

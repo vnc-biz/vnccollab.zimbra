@@ -3,11 +3,8 @@ from zope.formlib import form
 from zope.interface import implements
 from zope.component import getUtility
 
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
-from plone.memoize.view import memoize
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 
@@ -120,19 +117,6 @@ class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/zimbra_calendar.pt')
 
-    @memoize
-    def getAuthCredentials(self):
-        """Returns username and password for zimbra user."""
-        username, password = self.data.username, self.data.password
-        if not (username and password):
-            # take username and password from authenticated user Zimbra creds
-            mtool = getToolByName(self.context, 'portal_membership')
-            member = mtool.getAuthenticatedMember()
-            username, password = member.getProperty('zimbra_username', ''), \
-                member.getProperty('zimbra_password', '')
-        # password could contain non-ascii chars, ensure it's properly encoded
-        return username, safe_unicode(password).encode('utf-8')
-
     @property
     def title(self):
         """return title of feed for portlet"""
@@ -141,34 +125,9 @@ class Renderer(base.Renderer):
     @property
     def src(self):
         '''Returs the url of the zimbra calendar'''
-        username, password = self.getAuthCredentials()
+        util = getUtility(IZimbraUtil)
+        username, password = util._get_credentials()
         src = '%s/service/home/%s@%s/%s.html' % (
             self.data.url, username, self.data.mail_domain,
             self.data.calendar_name)
         return src
-
-    def check_credentials(self):
-        "Verifies the current user zimbra credetials. error='' if Ok."
-        error = ''
-
-        lost_keys = []
-        username, password = self.getAuthCredentials()
-        if not username:
-            lost_keys.append(_(u'zimbra_username'))
-        if not password:
-            lost_keys.append(_(u'zimbra_password'))
-
-        if lost_keys:
-            error = _(u"The calendar can't be shown, you need to configure "
-                      u"the following fields: ")
-            error = error + ', '.join(lost_keys)
-            return error
-
-        zimbraUtil = getUtility(IZimbraUtil)
-        authenticated = zimbraUtil.authenticate()
-        if not authenticated:
-            error = _(u"There was a network error or the"
-                      u" credentials for your zimbra account are incorrect.")
-            return error
-
-        return error
