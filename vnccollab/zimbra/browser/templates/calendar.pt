@@ -5,7 +5,7 @@
        tal:define="purl context/portal_url">
     <span tal:replace="error">Error Message</span>
     <br>You can check your credentials
-        <a tal:attributes="href string:${purl}/@@personal-information">here.</a>
+        <a tal:attributes="href string:${purl}/@@personal-information" target="_blank">here.</a>
   </div>
 
   <tal:page condition="not:error"
