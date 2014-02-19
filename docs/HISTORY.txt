@@ -4,6 +4,9 @@ Changelog
 1.0.5 - unreleased
 ------------------------
 
+- Adjusts position of select box in mail portlet.[9321]
+  [Cesar Gonzalez]
+
 - Adds folder selection to mail portlet.
   [Jose Dinuncio]
 

@@ -113,6 +113,7 @@
     left: 0;
     padding-left: 5px;
     padding-top: 8px;
+    vertical-align: top;
 }
 /*.portletZimbraMail .navBarEmails .buttons2 {*/
 .portletZimbraMail .buttons2 {
@@ -122,7 +123,17 @@
     right: 0;
     padding-right: 5px;
     padding-top: 8px;
+    vertical-align: top;
 }
+
+/* Folder select */
+.portletZimbraMail #zimbra-mail-folder-selector {
+    padding: 2px;
+    margin: 0;
+    border: 1px solid #D4D4D4 !important;
+    height: 23px;
+}
+
 
 /* Emails Listing */
 .portletZimbraMail .emailItem {
