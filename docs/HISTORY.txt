@@ -7,6 +7,9 @@ Changelog
 - Improves error messages in calendar portlet [9918].
   [Jose Dinuncio]
 
+- Adjusts position of select box in mail portlet.[9321]
+  [Cesar Gonzalez]
+
 - Adds folder selection to mail portlet.
   [Jose Dinuncio]
 
