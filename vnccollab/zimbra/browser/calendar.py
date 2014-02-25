@@ -61,25 +61,4 @@ class ZimbraCalendarView(BrowserView):
     def check_credentials(self):
         "Verifies the current user zimbra credetials. error='' if Ok."
         zimbraUtil = getUtility(IZimbraUtil)
-        username, password = zimbraUtil._get_credentials()
-
-        lost_keys = []
-        if not username:
-            lost_keys.append(_(u'zimbra_username'))
-        if not password:
-            lost_keys.append(_(u'zimbra_password'))
-
-        error = ''
-        if lost_keys:
-            error = _(u"The calendar can't be shown, you need to configure "
-                      u"the following fields: ")
-            error = error + ', '.join(lost_keys)
-            return error
-
-        authenticated = zimbraUtil.authenticate()
-        if not authenticated:
-            error = _(u"There was a network error or the"
-                      u" credentials for your zimbra account are incorrect.")
-            return error
-
-        return error
+        return zimbraUtil.check_credentials()
