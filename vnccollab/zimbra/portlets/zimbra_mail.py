@@ -133,6 +133,11 @@ class Renderer(base.Renderer):
     def update(self):
         pass
 
+    def check_credentials(self):
+        """Returns an error message is the user credentials are no ok."""
+        zimbraUtil = getUtility(IZimbraUtil)
+        return zimbraUtil.check_credentials()
+
     @memoize
     def getAuthCredentials(self):
         """Returns username and password for zimbra user."""
@@ -154,7 +159,11 @@ class Renderer(base.Renderer):
     @property
     def folders(self):
         client = getUtility(IZimbraUtil)
-        folders = client.get_search_folder()
+        try:
+            folders = client.get_search_folder()
+        except :
+            return []
+
         folders = [x for x in _flat_folders(folders) if x.type == 'message']
         info = [(x.absFolderPath, x.absFolderPath, x.name == 'Inbox')
                 for x in folders]
