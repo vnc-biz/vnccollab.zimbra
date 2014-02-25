@@ -4,6 +4,7 @@ from plone.memoize.instance import memoize
 
 from plone import api
 
+from vnccollab.zimbra import messageFactory as _
 from vnccollab.zimbra.interfaces import IZimbraUtil
 from vnccollab.zimbra.zimbraclient import ZimbraUtilClient
 
@@ -32,6 +33,31 @@ class ZimbraUtil:
         url = self._get_server_url()
         username, password = self._get_credentials()
         return self._get_client(url, username, password)
+
+    def check_credentials(self):
+        "Verifies the current user zimbra credetials. error='' if Ok."
+        username, password = self._get_credentials()
+
+        lost_keys = []
+        if not username:
+            lost_keys.append(_(u'zimbra_username'))
+        if not password:
+            lost_keys.append(_(u'zimbra_password'))
+
+        error = ''
+        if lost_keys:
+            error = _(u"Your zimbra account isn't configured. You need to set "
+                      u"the following fields: ")
+            error = error + ', '.join(lost_keys)
+            return error
+
+        authenticated = self.authenticate()
+        if not authenticated:
+            error = _(u"There was a network error or the"
+                      u" credentials for your zimbra account are incorrect.")
+            return error
+
+        return error
 
     def authenticate(self):
         '''Test if the current user is authenticated.'''
@@ -88,6 +114,12 @@ class ZimbraUtil:
         ''' '''
         client = self._get_client_for_current_user()
         return client.create_task(dct)
+
+    def get_search_folder(self, **query):
+        '''Returns the list of folders for the current user.'''
+        client = self._get_client_for_current_user()
+        result = client.get_search_folder(**query)
+        return result
 
 
 zimbraUtilInstance = ZimbraUtil()
