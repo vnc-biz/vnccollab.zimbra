@@ -4,6 +4,9 @@ Changelog
 1.0.5 - unreleased
 ------------------------
 
+- Fixes ie9-11 issue (black bg on cast messages).[9321]
+  [Cesar Gonzalez]
+
 - Adjusts position of select box in mail portlet.[9321]
   [Cesar Gonzalez]
 
