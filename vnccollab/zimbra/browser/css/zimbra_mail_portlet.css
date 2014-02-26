@@ -329,6 +329,11 @@ dl.portletZimbraMail .navBar .refreshButton {
     line-height: 1.25em;
 }
 
+/* Fix ie9-11 issue(black bg on cast messages)  */
+.portletZimbraMail .emailView .emailThread table {
+    background-color: #ffffff;
+}
+
 
 
 
