@@ -7,6 +7,15 @@ Changelog
 - Improves error messages in calendar portlet [9918].
   [Jose Dinuncio]
 
+- Fixes ie9-11 issue (black bg on cast messages).[9321]
+  [Cesar Gonzalez]
+
+- Adjusts position of select box in mail portlet.[9321]
+  [Cesar Gonzalez]
+
+- Adds folder selection to mail portlet.
+  [Jose Dinuncio]
+
 - Adds version.txt.
   [Jose Dinuncio]
 

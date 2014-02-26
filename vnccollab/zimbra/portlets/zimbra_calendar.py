@@ -54,7 +54,7 @@ class IZimbraCalendarPortlet(IPortletDataProvider):
 
     timeout = schema.Int(
         title=_(u"Data reload timeout"),
-        description=_(u"Time in minutes after which the data should be"
+        description=_(u"Time in minutes after which the data should be "
                       u"reloaded from Zimbra service. Minimun value: "
                       u"1 minute."),
         required=True,
