@@ -1,0 +1,14 @@
+<tal:main define="page_info python:view.getPageInfo();
+                  error     python:page_info[0];
+                  page      python:page_info[1];">
+  <div tal:condition="error"
+       tal:define="purl context/portal_url">
+    <span tal:replace="error">Error Message</span>
+    <br>You can check your credentials
+        <a tal:attributes="href string:${purl}/@@personal-information" target="_blank">here.</a>
+  </div>
+
+  <tal:page condition="not:error"
+            replace="structure page">
+  </tal:page>
+</tal:main>

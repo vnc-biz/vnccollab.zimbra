@@ -1,15 +1,15 @@
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements
+from zope.component import getUtility
 
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 
-from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
+from plone.portlets.interfaces import IPortletDataProvider
 
 from vnccollab.zimbra import messageFactory as _
+from vnccollab.zimbra.interfaces import IZimbraUtil
 
 
 class IZimbraCalendarPortlet(IPortletDataProvider):
@@ -54,8 +54,9 @@ class IZimbraCalendarPortlet(IPortletDataProvider):
 
     timeout = schema.Int(
         title=_(u"Data reload timeout"),
-        description=_(u"Time in minutes after which the data should be reloaded"
-                      " from Zimbra service. Minimun value: 1 minute."),
+        description=_(u"Time in minutes after which the data should be "
+                      u"reloaded from Zimbra service. Minimun value: "
+                      u"1 minute."),
         required=True,
         default=5,
         min=1)
@@ -116,18 +117,6 @@ class Renderer(base.Renderer):
 
     render = ZopeTwoPageTemplateFile('templates/zimbra_calendar.pt')
 
-    def getAuthCredentials(self):
-        """Returns username and password for zimbra user."""
-        username, password = self.data.username, self.data.password
-        if not (username and password):
-            # take username and password from authenticated user Zimbra creds
-            mtool = getToolByName(self.context, 'portal_membership')
-            member = mtool.getAuthenticatedMember()
-            username, password = member.getProperty('zimbra_username', ''), \
-                member.getProperty('zimbra_password', '')
-        # password could contain non-ascii chars, ensure it's properly encoded
-        return username, safe_unicode(password).encode('utf-8')
-
     @property
     def title(self):
         """return title of feed for portlet"""
@@ -136,8 +125,9 @@ class Renderer(base.Renderer):
     @property
     def src(self):
         '''Returs the url of the zimbra calendar'''
-        username, password = self.getAuthCredentials()
+        util = getUtility(IZimbraUtil)
+        username, password = util._get_credentials()
         src = '%s/service/home/%s@%s/%s.html' % (
-               self.data.url, username, self.data.mail_domain,
-               self.data.calendar_name)
+            self.data.url, username, self.data.mail_domain,
+            self.data.calendar_name)
         return src

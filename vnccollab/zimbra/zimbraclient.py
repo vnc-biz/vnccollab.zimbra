@@ -3,7 +3,7 @@ from pyzimbra.soap import SoapException
 from pyzimbra.auth import AuthException
 from pyzimbra.z.client import ZimbraClient
 
-from vnccollab.zimbra.content import Message, Conversation
+from vnccollab.zimbra.content import Message, Conversation, Folder
 
 
 def refreshAuthToken(func, *args, **kw):
@@ -223,6 +223,12 @@ class ZimbraUtilClient:
         response = self._get_message(response._getAttr(u'invId'))
         task = self._taskFromGetMsgResponse(response)
         return task
+
+    def get_search_folder(self, **query):
+        '''Returns the list of folders for the current user.'''
+        response, _ = self.client.get_search_folder_request(methodattrs=query)
+        folders = Folder(response)
+        return folders
 
     @refreshAuthToken
     def _get_message(self, id):

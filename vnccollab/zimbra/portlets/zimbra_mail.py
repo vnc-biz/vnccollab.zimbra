@@ -1,9 +1,10 @@
 import sys
 import logging
 
+from zope import schema
 from zope.formlib import form
 from zope.interface import implements
-from zope import schema
+from zope.component import getUtility
 
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -14,7 +15,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
 from vnccollab.zimbra import messageFactory as _
-
+from vnccollab.zimbra.interfaces import IZimbraUtil
 
 MYLOGGER = logging.getLogger('vnccollab.zimbra.ZimbraMailPortlet')
 
@@ -71,8 +72,9 @@ class IZimbraMailPortlet(IPortletDataProvider):
 
     timeout = schema.Int(
         title=_(u"Data reload timeout"),
-        description=_(u"Time in minutes after which the data should be reloaded"
-                      " from Zimbra service. Minimun value: 1 minute."),
+        description=_(u"Time in minutes after which the data should be "
+                      u" reloaded from Zimbra service. Minimun value:"
+                      u" 1 minute."),
         required=True,
         default=5,
         min=1)
@@ -131,6 +133,11 @@ class Renderer(base.Renderer):
     def update(self):
         pass
 
+    def check_credentials(self):
+        """Returns an error message is the user credentials are no ok."""
+        zimbraUtil = getUtility(IZimbraUtil)
+        return zimbraUtil.check_credentials()
+
     @memoize
     def getAuthCredentials(self):
         """Returns username and password for zimbra user."""
@@ -148,6 +155,28 @@ class Renderer(base.Renderer):
     def title(self):
         """return title of feed for portlet"""
         return self.data.header
+
+    @property
+    def folders(self):
+        client = getUtility(IZimbraUtil)
+        try:
+            folders = client.get_search_folder()
+        except :
+            return []
+
+        folders = [x for x in _flat_folders(folders) if x.type == 'message']
+        info = [(x.absFolderPath, x.absFolderPath, x.name == 'Inbox')
+                for x in folders]
+        return info
+
+
+def _flat_folders(folder, lst=None):
+    if lst is None:
+        lst = []
+    lst.append(folder)
+    for sub in folder.folders:
+        lst = _flat_folders(sub, lst)
+    return lst
 
 
 class AddForm(base.AddForm):
