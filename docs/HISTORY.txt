@@ -1,8 +1,15 @@
 Changelog
 =========
 
-1.0.5 - unreleased
-------------------------
+1.0.6 - unreleased
+------------------
+
+- Improves documentation [10610].
+  [Jose Dinuncio]
+
+
+1.0.5 - March 07, 2014
+----------------------
 
 - Improves error messages in calendar portlet [9918].
   [Jose Dinuncio]

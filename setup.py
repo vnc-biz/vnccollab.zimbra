@@ -10,10 +10,12 @@ setup(
     long_description=open("README.txt").read() + "\n" +
         open(os.path.join("docs", "HISTORY.txt")).read(),
     classifiers=[
+        "Environment :: Web Environment",
         "Framework :: Plone",
         "Programming Language :: Python",
+        "Operating System :: OS Independent",
     ],
-    keywords='',
+    keywords='zimbra mail',
     author='Jose Dinuncio',
     author_email='jose.dinuncio@vnc.biz',
     url='http://svn.plone.org/svn/collective/',
