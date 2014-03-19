@@ -45,4 +45,16 @@
       />
     </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="1003"
+    destination="1004"
+    sortkey="5"
+    profile="vnccollab.zimbra:default">
+
+    <genericsetup:upgradeDepends
+      title="Adds zimbra member data."
+      import_steps="memberdata-properties"
+      />
+    </genericsetup:upgradeSteps>
+
 </configure>

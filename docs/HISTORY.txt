@@ -4,6 +4,9 @@ Changelog
 1.0.6 - unreleased
 ------------------
 
+- Fixes memeber property bug.
+  [Jose Dinuncio]
+
 - Improves documentation [10610].
   [Jose Dinuncio]
 
