@@ -35,6 +35,7 @@ setup(
         'collective.z3cform.datepicker',
         'vnccollab.common',
     ],
+    extras_require={'test': ['plone.app.testing']},
     entry_points="""
     # -*- Entry points: -*-
 

@@ -4,6 +4,9 @@ Changelog
 1.0.6 - unreleased
 ------------------
 
+- Adds tests [10658]
+  [Jose Dinuncio]
+
 - Fixes memeber property bug.
   [Jose Dinuncio]
 
