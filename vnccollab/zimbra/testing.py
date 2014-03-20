@@ -1,13 +1,9 @@
-from Products.Five import zcml
-
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 
 from plone.testing import z2
-from Testing import ZopeTestCase as ztc
 from zope.configuration import xmlconfig
 
 
@@ -16,11 +12,11 @@ class VnccollabZimbraLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     dependencies = [
-            'collective.js.jqueryui',
-            'collective.customizablePersonalizeForm',
-            'vnccollab.common',
-            'vnccollab.zimbra',]
-
+        'collective.js.jqueryui',
+        'collective.customizablePersonalizeForm',
+        'vnccollab.common',
+        'vnccollab.zimbra',
+    ]
 
     def setUpZope(self, app, configurationContext):
         # Load ZCML
@@ -35,6 +31,7 @@ class VnccollabZimbraLayer(PloneSandboxLayer):
 
         for package in self.dependencies:
             z2.installProduct(app, package)
+
 
     def setUpPloneSite(self, portal):
         for package in self.dependencies:
