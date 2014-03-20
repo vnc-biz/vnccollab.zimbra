@@ -4,7 +4,10 @@ Changelog
 1.0.6 - unreleased
 ------------------
 
-- Fixes member property bug.
+- Adds tests [10658]
+  [Jose Dinuncio]
+
+- Fixes memeber property bug.
   [Jose Dinuncio]
 
 - Improves documentation [10610].
