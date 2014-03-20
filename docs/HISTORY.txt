@@ -7,7 +7,7 @@ Changelog
 - Adds tests [10658]
   [Jose Dinuncio]
 
-- Fixes memeber property bug.
+- Fixes member property bug.
   [Jose Dinuncio]
 
 - Improves documentation [10610].
