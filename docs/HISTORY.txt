@@ -1,6 +1,19 @@
 Changelog
 =========
 
+1.0.6 - April 02, 2014
+----------------------
+
+- Adds tests [10658]
+  [Jose Dinuncio]
+
+- Fixes member property bug.
+  [Jose Dinuncio]
+
+- Improves documentation [10610].
+  [Jose Dinuncio]
+
+
 1.0.5 - March 07, 2014
 ----------------------
 

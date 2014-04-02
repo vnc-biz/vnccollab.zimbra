@@ -36,4 +36,40 @@
     permission="plone.app.portlets.ViewDashboard"
     />
 
+  <!-- json -->
+  <browser:page
+    for="*"
+    name="get_object_json"
+    class=".json.GetObjectJson"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="*"
+    name="livesearch_reply_json"
+    class=".json.LiveSearchReplyJson"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="*"
+    name="get_list_of_search_parameters"
+    class=".json.GetListOfSearchParameters"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="*"
+    name="zimbra_get_tree_json"
+    class=".json.GetTreeJson"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="Products.ATContentTypes.interface.IATFile"
+    name="zimbra_set_filename"
+    class=".json.SetFilenameJson"
+    permission="cmf.ModifyPortalContent"
+    />
+
 </configure>
