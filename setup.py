@@ -7,8 +7,8 @@ setup(
     name='vnccollab.zimbra',
     version=version,
     description="VNC Collaboration Zimbra AddOn.",
-    long_description=open("README.txt").read() + "\n" +
-        open(os.path.join("docs", "HISTORY.txt")).read(),
+    long_description=open(os.path.join("docs", "README.txt")).read() + "\n" +
+                     open(os.path.join("docs", "HISTORY.txt")).read(),
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Plone",
@@ -35,6 +35,7 @@ setup(
         'collective.z3cform.datepicker',
         'vnccollab.common',
     ],
+    extras_require={'test': ['plone.app.testing']},
     entry_points="""
     # -*- Entry points: -*-
 

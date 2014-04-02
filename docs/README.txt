@@ -21,8 +21,9 @@ Usage
 -----
 
 After installing the package, the User's Personal Information page
-is extended with two fields: ``Zimbra Username`` and ``ZImbra Password``.
+is extended with two fields: ``Zimbra Username`` and ``Zimbra Password``.
 These fields are needed to authenticate against the zimbra server.
 
 Additionally, there are two new portlets: ``Zimbra: Calendar`` and
-``Zimbra: Mail``. These portlets can be added n the usual way.
+``Zimbra: Mail``. These portlets can be added in the usual way.
+
