@@ -31,6 +31,8 @@ setup(
         'plone.api',
         'requests',
         'BeautifulSoup',
+        'plone.app.jquery>=1.7.2',
+        'plone.app.jquerytools>=1.4',
         'collective.customizablePersonalizeForm',
         'collective.z3cform.datepicker',
         'vnccollab.common',

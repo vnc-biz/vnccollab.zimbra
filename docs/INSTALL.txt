@@ -34,7 +34,16 @@ recipe to manage your project, you can do this:
     recipe = plone.recipe.zope2instance
     ...
     zcml =
+        collective.customizablePersonalizeForm
+        collective.customizablePersonalizeForm-overrides
         vnccollab.zimbra
+
+* Set vnccollab.zimbra dependency versions:
+
+    [versions]
+    collective.js.jqueryui = 1.8.16.8
+    plone.app.jquery = 1.7.2
+    plone.app.jquerytools = 1.4
 
 * Re-run buildout, e.g. with:
 
