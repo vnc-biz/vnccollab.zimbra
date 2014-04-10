@@ -34,6 +34,7 @@ recipe to manage your project, you can do this:
     recipe = plone.recipe.zope2instance
     ...
     zcml =
+        wsapi4plone.core
         collective.customizablePersonalizeForm
         collective.customizablePersonalizeForm-overrides
         vnccollab.zimbra
