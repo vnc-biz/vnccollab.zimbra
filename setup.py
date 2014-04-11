@@ -7,7 +7,7 @@ setup(
     name='vnccollab.zimbra',
     version=version,
     description="VNC Collaboration Zimbra AddOn.",
-    long_description=open(os.path.join("docs", "README.txt")).read() + "\n" +
+    long_description=open("README.txt").read() + "\n" +
                      open(os.path.join("docs", "HISTORY.txt")).read(),
     classifiers=[
         "Environment :: Web Environment",
