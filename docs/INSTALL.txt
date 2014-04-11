@@ -24,9 +24,8 @@ recipe to manage your project, you can do this:
       pyzimbra
 
     [sources]
-    # pyzimbra is currently hosted in these places:
-    #pyzimbra = git git@github.com:vipod/pyzimbra.git
-    pyzimbra = git ssh://www-data@redmine.vnc.biz/pyzimbra branch=develop
+    # we are currently using our fork of pyzimbra
+    pyzimbra = git git://github.com/vnc-biz/pyzimbra.git branch=master
 
 * Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
 
