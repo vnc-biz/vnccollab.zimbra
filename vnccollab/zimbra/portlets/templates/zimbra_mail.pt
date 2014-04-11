@@ -87,7 +87,7 @@
           <div class="emailSubject"><!-- --></div>
           <div class="emailThread"><!-- --></div>
           <div class="spinner">
-            <img src="++resource++vnccollab.zimbra.images/spinner_arrows.gif"
+            <img src="++resource++vnccollab.common.images/spinner_arrows.gif"
                  tal:attributes="src string:${purl}/${attrs/src}" />
           </div>
         </div>

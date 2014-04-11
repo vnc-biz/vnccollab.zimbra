@@ -74,14 +74,14 @@
 }
 
 .portletZimbraMail .navBar .refreshButton {
-  background: transparent url('++resource++vnccollab.theme.images/reload.png') no-repeat 0 0;
+  background: transparent url('++resource++vnccollab.common.images/reload.png') no-repeat 0 0;
   width: 20px;
   text-indent: -9999px;
   background-size: 20px 20px;
   padding: 0;
 }
 .portletZimbraMail .inprogress .navBar .refreshButton {
-  background: transparent url('++resource++vnccollab.theme.images/spinner_arrows_nav.gif') no-repeat 3px 3px;
+  background: transparent url('++resource++vnccollab.common.images/spinner_arrows_nav.gif') no-repeat 3px 3px;
 }
 
 .portletZimbraMail .navBar .navBarGroup {
@@ -148,7 +148,7 @@
   background-color: #f2f2f2;
 }
 .portletZimbraMail .emailItem.selected {
-  background: #eeeeee url('++resource++vnccollab.theme.images/small_rarrow.png') no-repeat 0 16px;
+  background: #eeeeee url('++resource++vnccollab.common.images/small_rarrow.png') no-repeat 0 16px;
 }
 .portletZimbraMail .emailItem.unread {
   background-color: #ffffff;
@@ -261,7 +261,7 @@ dl.portletZimbraMail .navBar .button.disabled:hover {
 }
 
 dl.portletZimbraMail .navBar .refreshButton {
-    background-image: url('++resource++vnccollab.theme.images/reload.png');
+    background-image: url('++resource++vnccollab.common.images/reload.png');
     width: 0;
     text-indent: -9999px;
     background-size: 20px 20px;
