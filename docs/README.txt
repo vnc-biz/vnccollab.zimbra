@@ -27,3 +27,8 @@ These fields are needed to authenticate against the zimbra server.
 Additionally, there are two new portlets: ``Zimbra: Calendar`` and
 ``Zimbra: Mail``. These portlets can be added in the usual way.
 
+Known Issues
+------------
+
+Due to the use of plone.app.jquery 1.7.2, there could be some issues with
+overlays in Plone 4.2.
