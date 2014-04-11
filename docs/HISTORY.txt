@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.0.7 - unreleased
+------------------
+
+- Point image references to common package [10960].
+  [Cesar Gonzalez]
+
+- Improvement in dependencies [10960].
+  [Jose Dinuncio]
+
 1.0.6 - April 02, 2014
 ----------------------
 
