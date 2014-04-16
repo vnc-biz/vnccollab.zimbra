@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.8 - unreleased
+------------------
+
+- Cleans setup [11082].
+  [Jose Dinuncio]
+
 1.0.7 - April 11, 2014
 ----------------------
 
@@ -82,22 +88,22 @@ Changelog
   [Cesar Gonzalez]
 
 - Adds default_content() for messages and conversations.
-  [Jose]
+  [Jose Dinuncio]
 
 - Removes empty MIME parts.
-  [Jose]
+  [Jose Dinuncio]
 
 - Fixes bug getting content of mime part.
-  [Jose]
+  [Jose Dinuncio]
 
 - Adds getConversation to util.py
-  [Jose]
+  [Jose Dinuncio]
 
 - Fixes bug in searchConversations.
-  [Jose]
+  [Jose Dinuncio]
 
 - Reformats code.
-  [Jose]
+  [Jose Dinuncio]
 
 1.0 - March 6, 2013
 -------------------
