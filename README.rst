@@ -1,5 +1,3 @@
-.. contents::
-
 vnccollab.zimbra
 ================
 
@@ -15,7 +13,7 @@ Installation
 
 ``vnccollab.zimbra`` depends on a fork of ``pyzimbra`` that hasn't
 been merged yet upstream, so it's adviseable to use ``mr.developer``
-for its installation. Please read INSTALL.txt for more details.
+for its installation. Please read INSTALL.rst for more details.
 
 Usage
 -----
@@ -32,3 +30,4 @@ Known Issues
 
 Due to the use of plone.app.jquery 1.7.2, there could be some issues with
 overlays in Plone 4.2.
+
