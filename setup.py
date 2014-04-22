@@ -18,7 +18,7 @@ setup(
     keywords='zimbra mail',
     author='Jose Dinuncio',
     author_email='jose.dinuncio@vnc.biz',
-    url='http://svn.plone.org/svn/collective/',
+    url='https://github.com/vnc-biz/vnccollab.zimbra',
     license='gpl',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['vnccollab'],
