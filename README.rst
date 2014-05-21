@@ -13,7 +13,8 @@ Installation
 
 ``vnccollab.zimbra`` depends on a fork of ``pyzimbra`` that hasn't
 been merged yet upstream, so it's adviseable to use ``mr.developer``
-for its installation. Please read INSTALL.rst for more details.
+for its installation. 
+Please read INSTALL.rst for more details about the installation.
 
 Usage
 -----
