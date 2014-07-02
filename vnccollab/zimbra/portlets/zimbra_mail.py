@@ -40,7 +40,7 @@ class IZimbraMailPortlet(IPortletDataProvider):
         title=_(u"Zimbra service URL"),
         description=_(u"Root url to your Zimbra service."),
         required=True,
-        default='https://zcs.vnc.biz')
+        default='https://')
 
     folder_id = schema.ASCIILine(
         title=_(u"Mail Folder Id"),
@@ -98,7 +98,7 @@ class Assignment(base.Assignment):
 
     header = u'Zimbra Mail'
     protocol = 'https://'
-    url = 'https://zcs.vnc.biz'
+    url = 'https://'
     folder_id = 'inbox'
     count = 5
     username = ''
@@ -112,7 +112,7 @@ class Assignment(base.Assignment):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=u'', url='https://zcs.vnc.biz',
+    def __init__(self, header=u'', url='https://',
                  folder_id='inbox', count=5, username='', password=u'',
                  timeout=5, request_timeout=15, failure_delay=5):
         self.header = header

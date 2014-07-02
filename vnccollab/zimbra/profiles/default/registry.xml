@@ -4,6 +4,6 @@
       <field type="plone.registry.field.URI">
         <title>Zimbra Sever Host URL</title>
       </field>
-      <value>https://zcs.vnc.biz</value>
+      <value>https://</value>
     </record>
 </registry>
