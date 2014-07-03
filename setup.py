@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 import os
 
-version = open('version.txt').read()
+version = open('version.txt').readline().strip()
 
 setup(
     name='vnccollab.zimbra',
     version=version,
     description="VNC Collaboration Zimbra AddOn.",
-    long_description=open("README.txt").read() + "\n" +
+    long_description=open("README.rst").read() + "\n" +
                      open(os.path.join("docs", "HISTORY.txt")).read(),
     classifiers=[
         "Environment :: Web Environment",
@@ -18,7 +18,7 @@ setup(
     keywords='zimbra mail',
     author='Jose Dinuncio',
     author_email='jose.dinuncio@vnc.biz',
-    url='http://svn.plone.org/svn/collective/',
+    url='https://github.com/vnc-biz/vnccollab.zimbra',
     license='gpl',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['vnccollab'],

@@ -2,8 +2,8 @@
 <registry>
     <record name="vnccollab.zimbra.server_url">
       <field type="plone.registry.field.URI">
-        <title>Zimbra Sever Host URL</title>
+        <title>Zimbra Server Host URL</title>
       </field>
-      <value>https://zcs.vnc.biz</value>
+      <value>https://</value>
     </record>
 </registry>

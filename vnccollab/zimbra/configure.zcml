@@ -7,6 +7,7 @@
     i18n_domain="vnccollab.zimbra">
 
   <include package="plone.app.portlets" />
+  <include package="wsapi4plone.core" />
   <include package="collective.customizablePersonalizeForm" />
   <include package="five.grok" />
   <five:registerPackage package="." initialize=".initialize" />
@@ -18,7 +19,7 @@
 
   <genericsetup:registerProfile
     name="default"
-    title="vnccollab.zimbra"
+    title="VNC Collaboration ZImbra Integration"
     directory="profiles/default"
     description="Installs the vnccollab.zimbra package"
     provides="Products.GenericSetup.interfaces.EXTENSION"

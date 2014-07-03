@@ -24,7 +24,7 @@ class IZimbraCalendarPortlet(IPortletDataProvider):
         title=_(u"Zimbra service URL"),
         description=_(u"Root url to your Zimbra service."),
         required=True,
-        default='https://zcs.vnc.biz')
+        default='https://')
 
     mail_domain = schema.TextLine(
         title=_(u"Domain of the mail account"),
@@ -83,7 +83,7 @@ class Assignment(base.Assignment):
         """Return portlet header"""
         return self.header
 
-    def __init__(self, header=u'', url=u'https://zcs.vnc.biz',
+    def __init__(self, header=u'', url=u'https://',
                  mail_domain=u'vnc.biz',
                  username=u'', password=u'', calendar_name=u'',
                  timeout=5, request_timeout=15, failure_delay=5):
