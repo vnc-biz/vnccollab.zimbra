@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.8 - unreleased
+1.0.8 - July 02, 2014
 ------------------
 
 - Cleans setup [11082].
